@@ -1,0 +1,18 @@
+{
+  "name": "Anime",
+  "path": "models/sd/mistoonAnime_v20.safetensors",
+  "vae_path": "models/VAE/BerrysMix.vae.safetensors",
+  "motion_module": "models/motion-module/mm_sd_v14.ckpt",
+  "seed": [5658137986800322000],
+  "scheduler": "heund",
+  "steps": 25,
+  "guidance_scale": 7.5,
+  "head_prompt": "masterpiece, best quality, a stunning drone photo of a mountain peak, DJI Spark Photo, award winning photo",
+  "prompt_map": {
+    "0": "10km above the clouds, ((clouds:1.0))",
+    "32": "20km about the clouds, ((clouds:1.0))",
+    "64": "20km above the clouds, ((clouds:3.0))",
+    "96": "20km above the clouds, ((clouds:1.0))"
+  },
+  "n_prompt": ["(worst quality, low quality:1.4),nudity, blurry"]
+}
