@@ -610,3 +610,125 @@ see [guoyww/AnimateDiff](https://github.com/guoyww/AnimateDiff) (very little of 
 n.b. the copyright notice in `COPYING` is missing the original authors' names, solely because
 the original repo (as of this writing) has no name attached to the license. I have, however,
 used the same license they did (Apache 2.0).
+
+
+## Tips & Trick
+schedulars to try
+```
+'ddim', 'pndm', 'heun', 'unipc', 'euler', 'euler_a', 'lms', 'k_lms', 'dpm_2', 'k_dpm_2', 'dpm_2_a', 'k_dpm_2_a', 'dpmpp_2m', 'k_dpmpp_2m', 'dpmpp_sde', 'k_dpmpp_sde', 'dpmpp_2m_sde', 'k_dpmpp_2m_sde' 
+```
+
+### controlnet + refer
+1. images are loaded into vid on timestamp mentioned in 
+```
+ "prompt_map": {
+    "10": "(((The sunset view)))",
+    "16": "(((Apricote Trees)))"
+  },
+```
+2. without prompt_maps controlnet doesn't work
+3. clip_skip should be > 0. The higher clip the more prompt is ignored and generated something different
+4. what happens if add more prompt_map without controlnet?
+  -  not very stable
+5. if prompt_map last prompt length last timestamp is is < -L in `animatediff generate --config-path .\config\prompts\Vid2Vid.json -W 712 -H 512 -L 16 -C 16` adds  more stability
+6. adding a reference image in controlnet will generate video using + depthmap works better. Add reference as the first ts e.g. 00000.png
+7. long prompt_maps + depth map + ref image then more flikering as each timestamp will change
+```
+ "prompt_map": {
+    "0": "a snow peak in background,(spring season)",
+    "8": "a snow peak in background,(spring season)",
+
+    "16": "a snow peak in background,(spring season), (((clouds)))",
+ 
+    "28": "a snow peak in background,(spring season)",
+    "32": "a snow peak in background,(spring season), (((clouds)))",
+
+    "45": "a snow peak in background,(spring season)",
+  },
+```
+8. what happens when you supply same image X times depth image and run prompt_map from 0 to X with different prompt_maps?
+ - consistent but video generate is very diff 
+9. what if depdth images = prompt_maps with same timestamp as png names? 
+```
+    "prompt_map": {
+        "0": "a snow peak in background,(spring season)",
+        "8": "a snow peak in background,(spring season)",
+        "12": "a snow peak in background,(spring season)",
+        "16": "a snow peak in background,(spring season)",
+        "24": "a snow peak in background,((spring season))",
+        "28": "sunset view behind a snow peak in background,(spring season)",
+        "32": "a snow peak in background,(spring season)"
+    },
+```
+ - so far THE BEST RESULTS
+10. what if depdth images = prompt_maps with same timestamp as png names but lesser images and prompts?
+```
+  "prompt_map": {
+    "0": "a snow peak in background,(spring season)",
+    "8": "a snow peak in background,(spring season)",
+    "16": "a snow peak in background,(spring season), (((clouds)))",
+    "28": "a snow peak in background,(spring season)",
+    "32": "a snow peak in background,(spring season), (((clouds)))"
+  },
+```
+- Also GOOD RESULTS 
+
+9. what happens when the gap between first and last prompt in prompt_map is 40 secs of -L 60?
+- Interesting results but the mountain is not consistent. 
+
+10. controlnet+depth+no ref image with following prompts
+```
+  "prompt_map": {
+    "0": "a snow peak in background,(spring season)",
+    "16": "a snow peak in background,(spring season), (((clouds)))",
+    "32": "a snow peak in background,(spring season), (((clouds)))"
+  },
+```
+- also GOOD RESULTS
+
+11. If prompt timestamp is 32 and image name is 0032 then 0032 is skipped. The timestamp should be last image number + 1. The following gives 
+```
+  "prompt_map": {
+    "0": "a snow peak in background,(spring season)",
+    "16": "a snow peak in background,(spring season), (((clouds)))",
+    "32": "a snow peak in background,(spring season), (((clouds)))"
+  },
+```
+- THE BEST RESULTS , see `C:\Users\agaam\projects\ai\animatediff-cli-prompt-travel\output\2023-10-26T13-15-05-realistic-dreamshaper_8`
+
+12. Same settings 11 but no references
+ - too much scene changing/flikering in the images
+
+13. depthmap + softedge + prompt 11
+ - bad results `C:\Users\agaam\projects\ai\animatediff-cli-prompt-travel\output\2023-10-26T13-35-22-realistic-dreamshaper_8`
+
+14. depthmap + softedge + ref_img + prompt 11
+ - very good results `C:\Users\agaam\projects\ai\animatediff-cli-prompt-travel\output\2023-10-28T15-24-37-realistic-dreamshaper_8`
+
+15. depthmap + controlnet_lineart + ref + prompt 11
+ - not good `C:\Users\agaam\projects\ai\animatediff-cli-prompt-travel\output\2023-10-26T14-05-08-realistic-dreamshaper_8`
+ 
+16. softedge + prompt 11
+ - okish `C:\Users\agaam\projects\ai\animatediff-cli-prompt-travel\output\2023-10-28T13-25-59-realistic-dreamshaper_8`
+
+17. depth + prompt 11 + guidance = 1
+ - strange /interesting `C:\Users\agaam\projects\ai\animatediff-cli-prompt-travel\output\2023-10-28T15-02-59-realistic-dreamshaper_8`
+  
+18. canny + depth + linear art + prompt 11
+ - not good
+
+19. What is -C in `animatediff generate --config-path .\config\prompts\Vid2Vid.json -W 712 -H 512 -L 33 -C 8`
+
+5. original configs `https://pastebin.com/Jge7FZNf`  
+
+
+### Trouble shooting 
+1. controlnet is not downloading and stucked
+change use_preprocessor to false in controlnet configs. 
+```
+"use_preprocessor": false
+```
+
+### Issues
+ 
+ - other then depth and canny not all controlnet maps are generated

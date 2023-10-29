@@ -4,7 +4,7 @@
   "vae_path": "models/VAE/BerrysMix.vae.safetensors",
   "motion_module": "models/motion-module/mm_sd_v14.ckpt",
   "seed": [5658137986800322000],
-  "scheduler": "heund",
+  "scheduler": "dpmpp_2m_sde",
   "steps": 25,
   "guidance_scale": 7.5,
   "head_prompt": "masterpiece, best quality, a stunning drone photo of a mountain peak, DJI Spark Photo, award winning photo",

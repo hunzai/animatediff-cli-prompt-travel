@@ -6,12 +6,11 @@
   "scheduler": "heun",
   "steps": 25,
   "guidance_scale": 7.5,
-  "head_prompt": "masterpiece, best quality, a stunning drone photo of a mountain peak, DJI Spark Photo, award winning photo",
+  "head_prompt": "masterpiece, best quality, apricot trees garden , evening light, cinematic light, atmospheric effects, 4k, award winning photo",
   "prompt_map": {
-    "0": "10km above the clouds, ((clouds:1.0))",
-    "32": "20km about the clouds, ((clouds:1.0))",
-    "64": "20km above the clouds, ((clouds:3.0))",
-    "96": "20km above the clouds, ((clouds:1.0))"
+    "0": " mountain snow peaks, ((clouds:1.0))",
+    "32": "mountain snow peaks, ((clouds:1.0))",
+    "64": "sun set snow peaks, ((clouds:3.0))"
   },
   "n_prompt": ["(worst quality, low quality:1.4),nudity, blurry"]
 }
