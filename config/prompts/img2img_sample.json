@@ -1,6 +1,6 @@
 {
   "name": "sample",
-  "path": "C:\\Users\\agaam\\projects\\ai\\animatediff-cli-prompt-travel\\data\\models\\sd\\mistoonAnime_v20.safetensors",
+  "path": "\\models\\sd\\mistoonAnime_v20.safetensors",
   "motion_module": "models/motion-module/mm_sd_v15_v2.ckpt",
   "compile": false,
   "seed": [12345],
@@ -19,8 +19,8 @@
     "(worst quality:2), (bad quality:2), (normal quality:2), lowers, bad anatomy, bad hands, (multiple views), bad architecture, poor neighbourhood, ghetto, old building, humans, kids, broken walls, bad design, (((hanging curtains))), (((hanging cloths)))"
   ],
   "lora_map": {
-    "C:\\Users\\agaam\\projects\\ai\\animatediff-cli-prompt-travel\\data\\models\\lora\\Ghibli_v6.safetensors": 1.0,
-    "C:\\Users\\agaam\\projects\\ai\\animatediff-cli-prompt-travel\\data\\models\\lora\\add_details.safetensors": 1.0
+    "\\models\\lora\\Ghibli_v6.safetensors": 1.0,
+    "\\models\\lora\\add_details.safetensors": 1.0
   },
   "motion_lora_map": {},
   "ip_adapter_map": {
@@ -36,7 +36,7 @@
   },
   "img2img_map": {
     "enable": true,
-    "init_img_dir": "C:\\Users\\agaam\\projects\\ai\\animatediff-cli-prompt-travel\\data\\img2img_input\\dance",
+    "init_img_dir": "\\img2img_input\\dance",
     "save_init_image": true,
     "denoising_strength": 0.2
   },
