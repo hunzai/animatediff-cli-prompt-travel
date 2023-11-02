@@ -1,217 +1,213 @@
 {
   "name": "sample",
-  "path": "share/Stable-diffusion/mistoonAnime_v20.safetensors",
+  "path": "C:\\Users\\agaam\\projects\\ai\\animatediff-cli-prompt-travel\\data\\models\\sd\\mistoonAnime_v20.safetensors",
   "motion_module": "models/motion-module/mm_sd_v15_v2.ckpt",
   "compile": false,
-  "seed": [
-    12345
-  ],
+  "seed": [12345],
   "scheduler": "k_dpmpp_sde",
   "steps": 20,
-  "guidance_scale": 10,
+  "guidance_scale": 7.5,
   "unet_batch_size": 1,
   "clip_skip": 2,
   "prompt_fixed_ratio": 0.5,
-  "head_prompt": "(style of studio ghibli:1.2), (masterpiece, best quality)",
+  "head_prompt": "(style of studio ghibli:1.6), (masterpiece, best quality), aware winning photo",
   "prompt_map": {
-    "0":  "forest, water, river, outdoors,"
+    "0": "an girl dancing among mystic trees, Indian dance"
   },
   "tail_prompt": "",
   "n_prompt": [
-    "(worst quality:2), (bad quality:2), (normal quality:2), lowers, bad anatomy, bad hands, (multiple views),"
+    "(worst quality:2), (bad quality:2), (normal quality:2), lowers, bad anatomy, bad hands, (multiple views), bad architecture, poor neighbourhood, ghetto, old building, humans, kids, broken walls, bad design, (((hanging curtains))), (((hanging cloths)))"
   ],
   "lora_map": {
-      "share/models/Lora/Ghibli_v6.safetensors": 1.0
+    "C:\\Users\\agaam\\projects\\ai\\animatediff-cli-prompt-travel\\data\\models\\lora\\Ghibli_v6.safetensors": 1.0,
+    "C:\\Users\\agaam\\projects\\ai\\animatediff-cli-prompt-travel\\data\\models\\lora\\add_details.safetensors": 1.0
   },
-  "motion_lora_map": {
-  },
+  "motion_lora_map": {},
   "ip_adapter_map": {
-      "enable": false,
-      "input_image_dir": "",
-      "prompt_fixed_ratio": 0.5,
-      "save_input_image": true,
-      "resized_to_square": false,
-      "scale": 0.5,
-      "is_plus_face": false,
-      "is_plus": true,
-      "is_light": false
+    "enable": false,
+    "input_image_dir": "",
+    "prompt_fixed_ratio": 0.8,
+    "save_input_image": true,
+    "resized_to_square": false,
+    "scale": 0.8,
+    "is_plus_face": false,
+    "is_plus": true,
+    "is_light": false
   },
-  "img2img_map":{
+  "img2img_map": {
     "enable": true,
-    "init_img_dir" : "init_imgs/sample0",
+    "init_img_dir": "C:\\Users\\agaam\\projects\\ai\\animatediff-cli-prompt-travel\\data\\img2img_input\\dance",
     "save_init_image": true,
-    "denoising_strength" : 0.85
+    "denoising_strength": 0.2
   },
   "controlnet_map": {
-    "input_image_dir" : "",
+    "input_image_dir": "",
     "max_samples_on_vram": 0,
-    "max_models_on_vram" : 1,
+    "max_models_on_vram": 1,
     "save_detectmap": true,
     "preprocess_on_gpu": true,
     "is_loop": true,
-    
-    "controlnet_tile":{
+
+    "controlnet_tile": {
       "enable": true,
-      "use_preprocessor":true,
-      "preprocessor":{
-        "type" : "none",
-        "param":{
-        }
+      "use_preprocessor": true,
+      "preprocessor": {
+        "type": "none",
+        "param": {}
       },
-      "guess_mode":false,
+      "guess_mode": false,
       "controlnet_conditioning_scale": 1.0,
       "control_guidance_start": 0.0,
       "control_guidance_end": 1.0,
-      "control_scale_list":[0.5,0.4,0.3,0.2,0.1]
+      "control_scale_list": [0.5, 0.4, 0.3, 0.2, 0.1]
     },
-    "controlnet_ip2p":{
+    "controlnet_ip2p": {
       "enable": true,
-      "use_preprocessor":true,
-      "guess_mode":false,
+      "use_preprocessor": true,
+      "guess_mode": false,
       "controlnet_conditioning_scale": 1.0,
       "control_guidance_start": 0.0,
       "control_guidance_end": 1.0,
-      "control_scale_list":[0.5,0.4,0.3,0.2,0.1]
+      "control_scale_list": [0.5, 0.4, 0.3, 0.2, 0.1]
     },
-    "controlnet_lineart_anime":{
+    "controlnet_lineart_anime": {
       "enable": true,
-      "use_preprocessor":true,
-      "guess_mode":false,
+      "use_preprocessor": true,
+      "guess_mode": false,
       "controlnet_conditioning_scale": 1.0,
       "control_guidance_start": 0.0,
       "control_guidance_end": 1.0,
-      "control_scale_list":[0.5,0.4,0.3,0.2,0.1]
+      "control_scale_list": [0.5, 0.4, 0.3, 0.2, 0.1]
     },
-    "controlnet_openpose":{
+    "controlnet_openpose": {
       "enable": true,
-      "use_preprocessor":true,
-      "guess_mode":false,
+      "use_preprocessor": true,
+      "guess_mode": false,
       "controlnet_conditioning_scale": 1.0,
       "control_guidance_start": 0.0,
       "control_guidance_end": 1.0,
-      "control_scale_list":[0.5,0.4,0.3,0.2,0.1]
+      "control_scale_list": [0.5, 0.4, 0.3, 0.2, 0.1]
     },
-    "controlnet_softedge":{
+    "controlnet_softedge": {
       "enable": true,
-      "use_preprocessor":true,
-      "preprocessor":{
-        "type" : "softedge_pidsafe",
-        "param":{
-        }
+      "use_preprocessor": true,
+      "preprocessor": {
+        "type": "softedge_pidsafe",
+        "param": {}
       },
-      "guess_mode":false,
+      "guess_mode": false,
       "controlnet_conditioning_scale": 1.0,
       "control_guidance_start": 0.0,
       "control_guidance_end": 1.0,
-      "control_scale_list":[0.5,0.4,0.3,0.2,0.1]
+      "control_scale_list": [0.5, 0.4, 0.3, 0.2, 0.1]
     },
     "controlnet_shuffle": {
       "enable": true,
-      "use_preprocessor":true,
-      "guess_mode":false,
+      "use_preprocessor": true,
+      "guess_mode": false,
       "controlnet_conditioning_scale": 1.0,
       "control_guidance_start": 0.0,
       "control_guidance_end": 1.0,
-      "control_scale_list":[0.5,0.4,0.3,0.2,0.1]
+      "control_scale_list": [0.5, 0.4, 0.3, 0.2, 0.1]
     },
     "controlnet_depth": {
       "enable": true,
-      "use_preprocessor":true,
-      "guess_mode":false,
+      "use_preprocessor": true,
+      "guess_mode": false,
       "controlnet_conditioning_scale": 1.0,
       "control_guidance_start": 0.0,
       "control_guidance_end": 1.0,
-      "control_scale_list":[0.5,0.4,0.3,0.2,0.1]
+      "control_scale_list": [0.5, 0.4, 0.3, 0.2, 0.1]
     },
     "controlnet_canny": {
       "enable": true,
-      "use_preprocessor":true,
-      "guess_mode":false,
+      "use_preprocessor": true,
+      "guess_mode": false,
       "controlnet_conditioning_scale": 1.0,
       "control_guidance_start": 0.0,
       "control_guidance_end": 1.0,
-      "control_scale_list":[0.5,0.4,0.3,0.2,0.1]
+      "control_scale_list": [0.5, 0.4, 0.3, 0.2, 0.1]
     },
     "controlnet_inpaint": {
       "enable": true,
-      "use_preprocessor":true,
-      "guess_mode":false,
+      "use_preprocessor": true,
+      "guess_mode": false,
       "controlnet_conditioning_scale": 1.0,
       "control_guidance_start": 0.0,
       "control_guidance_end": 1.0,
-      "control_scale_list":[0.5,0.4,0.3,0.2,0.1]
+      "control_scale_list": [0.5, 0.4, 0.3, 0.2, 0.1]
     },
     "controlnet_lineart": {
       "enable": true,
-      "use_preprocessor":true,
-      "guess_mode":false,
+      "use_preprocessor": true,
+      "guess_mode": false,
       "controlnet_conditioning_scale": 1.0,
       "control_guidance_start": 0.0,
       "control_guidance_end": 1.0,
-      "control_scale_list":[0.5,0.4,0.3,0.2,0.1]
+      "control_scale_list": [0.5, 0.4, 0.3, 0.2, 0.1]
     },
     "controlnet_mlsd": {
       "enable": true,
-      "use_preprocessor":true,
-      "guess_mode":false,
+      "use_preprocessor": true,
+      "guess_mode": false,
       "controlnet_conditioning_scale": 1.0,
       "control_guidance_start": 0.0,
       "control_guidance_end": 1.0,
-      "control_scale_list":[0.5,0.4,0.3,0.2,0.1]
+      "control_scale_list": [0.5, 0.4, 0.3, 0.2, 0.1]
     },
     "controlnet_normalbae": {
       "enable": true,
-      "use_preprocessor":true,
-      "guess_mode":false,
+      "use_preprocessor": true,
+      "guess_mode": false,
       "controlnet_conditioning_scale": 1.0,
       "control_guidance_start": 0.0,
       "control_guidance_end": 1.0,
-      "control_scale_list":[0.5,0.4,0.3,0.2,0.1]
+      "control_scale_list": [0.5, 0.4, 0.3, 0.2, 0.1]
     },
     "controlnet_scribble": {
       "enable": true,
-      "use_preprocessor":true,
-      "guess_mode":false,
+      "use_preprocessor": true,
+      "guess_mode": false,
       "controlnet_conditioning_scale": 1.0,
       "control_guidance_start": 0.0,
       "control_guidance_end": 1.0,
-      "control_scale_list":[0.5,0.4,0.3,0.2,0.1]
+      "control_scale_list": [0.5, 0.4, 0.3, 0.2, 0.1]
     },
     "controlnet_seg": {
       "enable": true,
-      "use_preprocessor":true,
-      "guess_mode":false,
+      "use_preprocessor": true,
+      "guess_mode": false,
       "controlnet_conditioning_scale": 1.0,
       "control_guidance_start": 0.0,
       "control_guidance_end": 1.0,
-      "control_scale_list":[0.5,0.4,0.3,0.2,0.1]
+      "control_scale_list": [0.5, 0.4, 0.3, 0.2, 0.1]
     },
     "qr_code_monster_v1": {
       "enable": true,
-      "use_preprocessor":true,
-      "guess_mode":false,
+      "use_preprocessor": true,
+      "guess_mode": false,
       "controlnet_conditioning_scale": 1.0,
       "control_guidance_start": 0.0,
       "control_guidance_end": 1.0,
-      "control_scale_list":[0.5,0.4,0.3,0.2,0.1]
+      "control_scale_list": [0.5, 0.4, 0.3, 0.2, 0.1]
     },
     "qr_code_monster_v2": {
       "enable": true,
-      "use_preprocessor":true,
-      "guess_mode":false,
+      "use_preprocessor": true,
+      "guess_mode": false,
       "controlnet_conditioning_scale": 1.0,
       "control_guidance_start": 0.0,
       "control_guidance_end": 1.0,
-      "control_scale_list":[0.5,0.4,0.3,0.2,0.1]
+      "control_scale_list": [0.5, 0.4, 0.3, 0.2, 0.1]
     },
     "controlnet_mediapipe_face": {
       "enable": true,
-      "use_preprocessor":true,
-      "guess_mode":false,
+      "use_preprocessor": true,
+      "guess_mode": false,
       "controlnet_conditioning_scale": 1.0,
       "control_guidance_start": 0.0,
       "control_guidance_end": 1.0,
-      "control_scale_list":[0.5,0.4,0.3,0.2,0.1]
+      "control_scale_list": [0.5, 0.4, 0.3, 0.2, 0.1]
     },
     "controlnet_ref": {
       "enable": false,
@@ -221,7 +217,7 @@
       "style_fidelity": 0.5,
       "reference_attn": true,
       "reference_adain": false,
-      "scale_pattern":[1.0]
+      "scale_pattern": [1.0]
     }
   },
   "upscale_config": {
@@ -262,10 +258,10 @@
       "reference_adain": false
     }
   },
-  "output":{
-    "format" : "mp4",
-    "fps" : 8,
-    "encode_param":{
+  "output": {
+    "format": "mp4",
+    "fps": 16,
+    "encode_param": {
       "crf": 10
     }
   }

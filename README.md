@@ -866,6 +866,9 @@ schedulars to try
 
 5. original configs `https://pastebin.com/Jge7FZNf`  
 
+### img2img 
+- the -L should be equal to number of images in `C:\Users\agaam\projects\ai\animatediff-cli-prompt-travel\data\img2img_input\images`
+
 
 ### Trouble shooting 
 1. controlnet is not downloading and stucked
@@ -877,3 +880,4 @@ change use_preprocessor to false in controlnet configs.
 ### Issues
  
  - other then depth and canny not all controlnet maps are generated
+
