@@ -2,7 +2,6 @@
 
 absl-py==2.0.0
 accelerate==0.23.0
--e git+https://github.com/s9roll7/animatediff-cli-prompt-travel.git@582dff1051df49b026b4dbc0a04a9e546f87e859#egg=animatediff
 antlr4-python3-runtime==4.9.3
 attrs==23.1.0
 beautifulsoup4==4.12.2
