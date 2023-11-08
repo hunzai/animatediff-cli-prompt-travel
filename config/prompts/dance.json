@@ -1,6 +1,6 @@
 {
   "name": "dance",
-  "path": "\\models\\sd\\mistoonAnime_v20.safetensors",
+  "path": "models/sd/mistoonAnime_v20.safetensors",
   "motion_module": "models/motion-module/mm_sd_v15_v2.ckpt",
   "compile": false,
   "seed": [12323434],
@@ -35,7 +35,7 @@
   },
   "img2img_map": {
     "enable": true,
-    "init_img_dir": "\\controlnet_image\\dance\\controlnet_depth",
+    "init_img_dir": "controlnet_image/dance/controlnet_depth",
     "save_init_image": true,
     "denoising_strength": 0.8
   },
