@@ -135,6 +135,18 @@ def get_random():
     return int(np.random.randint(sys.maxsize, dtype=np.int64))
 
 
+def process_prompts(prompt: Optional[str]):
+    if prompt:
+        # Split the prompt string into a list of strings on each comma
+        prompt_values = [value.strip() for value in prompt.split(",")]
+
+        # Now, you can process each value in prompt_values
+        for value in prompt_values:
+            print(f"Processing: {value}")
+    else:
+        print("No prompt provided")
+
+
 @cli.command()
 def generate(
     model_name_or_path: Annotated[
@@ -347,12 +359,11 @@ def generate(
     model_config: ModelConfig = get_model_config(config_path)
     print(f"ref image: {ref_image}")
     model_config.controlnet_map["controlnet_ref"]["ref_image"] = ref_image
-    model_config.head_prompt = prompt
+    print(f"prompt: {prompt}")
+    model_config.head_prompt = process_prompts(prompt)
     model_config.guidance_scale = guidance_scale
     is_v2 = is_v2_motion_module(data_dir.joinpath(model_config.motion_module))
     infer_config: InferenceConfig = get_infer_config(is_v2)
-
-    print(f"{model_config}")
     set_tensor_interpolation_method(model_config.tensor_interpolation_slerp)
 
     # set sane defaults for context, overlap, and stride if not supplied

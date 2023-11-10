@@ -1,6 +1,6 @@
 {
   "name": "dance",
-  "path": "/content/drive/MyDrive/AI/animatediff-cli-prompt-travel/shared/mistoonAnime_v20.safetensors",
+  "path": "models/sd/mistoonAnime_v20.safetensors",
   "motion_module": "models/motion-module/mm_sd_v15_v2.ckpt",
   "compile": false,
   "seed": [12323434],
@@ -203,7 +203,7 @@
       "control_scale_list": [0.5, 0.4, 0.3, 0.2, 0.1]
     },
     "controlnet_ref": {
-      "enable": true,
+      "enable": false,
       "ref_image": "ref_image/ref_sample.png",
       "attention_auto_machine_weight": 0.3,
       "gn_auto_machine_weight": 0.3,
