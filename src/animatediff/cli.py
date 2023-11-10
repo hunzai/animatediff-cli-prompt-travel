@@ -330,6 +330,10 @@ def generate(
             help="set prompt to overide from the prompt.json",
         ),
     ] = None,
+    guidance_scale: Annotated[
+        float,
+        typer.Option("--guidance_scale", "-gc", min=1, max=15, help="guidance_scale"),
+    ] = 7.5,
 ):
     """
     Do the thing. Make the animation happen. Waow.
@@ -344,6 +348,7 @@ def generate(
     print(f"ref image: {ref_image}")
     model_config.controlnet_map["controlnet_ref"]["ref_image"] = ref_image
     model_config.head_prompt = prompt
+    model_config.guidance_scale = guidance_scale
     is_v2 = is_v2_motion_module(data_dir.joinpath(model_config.motion_module))
     infer_config: InferenceConfig = get_infer_config(is_v2)
 
