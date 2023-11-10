@@ -311,7 +311,7 @@ def generate(
         ),
     ] = None,
     ref_image: Annotated[
-        Path,
+        Optional[Path],
         typer.Option(
             "--ref_image",
             "-r",
@@ -357,7 +357,7 @@ def generate(
     print(f"ref image: {ref_image}")
 
     if ref_image:
-        model_config.controlnet_map["controlnet_ref"]["enable"] = "true"
+        model_config.controlnet_map["controlnet_ref"]["enable"] = True
         model_config.controlnet_map["controlnet_ref"]["ref_image"] = ref_image
 
     model_config.head_prompt = prompt
