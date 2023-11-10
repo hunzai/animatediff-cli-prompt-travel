@@ -367,7 +367,11 @@ def generate(
     logger.info(f"Using generation config: {path_from_cwd(config_path)}")
     model_config: ModelConfig = get_model_config(config_path)
     print(f"ref image: {ref_image}")
-    model_config.controlnet_map["controlnet_ref"]["ref_image"] = ref_image
+
+    if ref_image:
+        model_config.controlnet_map["controlnet_ref"]["enable"] = "true"
+        model_config.controlnet_map["controlnet_ref"]["ref_image"] = ref_image
+
     print(f"prompt: {prompt}")
     model_config.head_prompt = process_prompts(prompt)
     model_config.guidance_scale = guidance_scale
