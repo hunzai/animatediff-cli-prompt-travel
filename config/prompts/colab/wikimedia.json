@@ -6,7 +6,7 @@
   "seed": [12323434],
   "scheduler": "k_dpmpp_sde",
   "steps": 20,
-  "guidance_scale": 11,
+  "guidance_scale": 8.3,
   "unet_batch_size": 2,
   "clip_skip": 2,
   "prompt_fixed_ratio": 0.8,
@@ -34,7 +34,7 @@
     "is_light": false
   },
   "img2img_map": {
-    "enable": true,
+    "enable": false,
     "init_img_dir": "controlnet_image/dance/controlnet_canny",
     "save_init_image": true,
     "denoising_strength": 0.8
@@ -73,7 +73,7 @@
       "control_scale_list": [0.5, 0.4, 0.3, 0.2, 0.1]
     },
     "controlnet_openpose": {
-      "enable": true,
+      "enable": false,
       "use_preprocessor": true,
       "guess_mode": false,
       "controlnet_conditioning_scale": 1.0,
@@ -219,7 +219,7 @@
     "strength": 0.5,
     "guidance_scale": 10,
     "controlnet_tile": {
-      "enable": false,
+      "enable": true,
       "controlnet_conditioning_scale": 1.0,
       "guess_mode": false,
       "control_guidance_start": 0.0,
