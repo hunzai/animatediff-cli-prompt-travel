@@ -316,7 +316,6 @@ def generate(
             "--ref_image",
             "-r",
             path_type=Path,
-            exists=True,
             readable=True,
             dir_okay=False,
             help="set ref_image in controlnet_map",
