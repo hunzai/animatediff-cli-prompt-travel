@@ -94,11 +94,11 @@ from importlib.metadata import version as meta_version
 
 from packaging import version
 
-diffuser_ver = meta_version('diffusers')
+diffuser_ver = meta_version("diffusers")
 
 logger.info(f"{diffuser_ver=}")
 
-if version.parse(diffuser_ver) < version.parse('0.21.2'):
+if version.parse(diffuser_ver) < version.parse("0.21.2"):
     logger.error(f"The version of diffusers is out of date")
     logger.error(f"python -m pip install diffusers==0.21.2")
     raise ImportError("Please update diffusers to 0.21.2")
@@ -310,6 +310,18 @@ def generate(
             help="Show version",
         ),
     ] = None,
+    ref_image: Annotated[
+        Path,
+        typer.Option(
+            "--ref_image",
+            "-r",
+            path_type=Path,
+            exists=True,
+            readable=True,
+            dir_okay=False,
+            help="set ref_image in controlnet_map",
+        ),
+    ] = None,
 ):
     """
     Do the thing. Make the animation happen. Waow.
@@ -321,9 +333,12 @@ def generate(
     config_path = config_path.absolute()
     logger.info(f"Using generation config: {path_from_cwd(config_path)}")
     model_config: ModelConfig = get_model_config(config_path)
+    print(f"ref image: {ref_image}")
+    model_config.controlnet_map["controlnet_ref"]["ref_image"] = ref_image
     is_v2 = is_v2_motion_module(data_dir.joinpath(model_config.motion_module))
     infer_config: InferenceConfig = get_infer_config(is_v2)
 
+    print(f"{model_config}")
     set_tensor_interpolation_method(model_config.tensor_interpolation_slerp)
 
     # set sane defaults for context, overlap, and stride if not supplied
