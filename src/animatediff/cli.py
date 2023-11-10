@@ -346,6 +346,15 @@ def generate(
         float,
         typer.Option("--guidance_scale", "-gc", min=1, max=15, help="guidance_scale"),
     ] = 7.5,
+    seed: Annotated[
+        int,
+        typer.Option(
+            "--seed",
+            "-sd",
+            help="prompt seed",
+            rich_help_panel="Generation",
+        ),
+    ] = -1,
 ):
     """
     Do the thing. Make the animation happen. Waow.
@@ -362,6 +371,7 @@ def generate(
     print(f"prompt: {prompt}")
     model_config.head_prompt = process_prompts(prompt)
     model_config.guidance_scale = guidance_scale
+    model_config.seed[0] = seed
     is_v2 = is_v2_motion_module(data_dir.joinpath(model_config.motion_module))
     infer_config: InferenceConfig = get_infer_config(is_v2)
     set_tensor_interpolation_method(model_config.tensor_interpolation_slerp)

@@ -12,9 +12,11 @@
   "prompt_fixed_ratio": 0.8,
   "head_prompt": " (masterpiece, best quality),a girl dancing, (((WHITE SHIRT DRESS))), (((BLACK  LONG PANT Trousers))), ((perfect eyes)),  aware winning photo, stunning details, 4k, aware winning photo, best composition, cinematic lighting",
   "prompt_map": {
-    "0": "in a mystic jungle",
+    "10": "((( snow fall)))",
+    "20": "((( snow fall)))",
+    "30": "((( snow fall)))",
     "40": "((( snow fall)))",
-    "55": "(((street)))"
+    "50": "((( snow fall)))"
   },
   "tail_prompt": "",
   "n_prompt": [
