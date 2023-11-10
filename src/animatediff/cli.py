@@ -322,6 +322,14 @@ def generate(
             help="set ref_image in controlnet_map",
         ),
     ] = None,
+    prompt: Annotated[
+        str,
+        typer.Option(
+            "--prompt",
+            "-p",
+            help="set prompt to overide from the prompt.json",
+        ),
+    ] = None,
 ):
     """
     Do the thing. Make the animation happen. Waow.
@@ -335,6 +343,7 @@ def generate(
     model_config: ModelConfig = get_model_config(config_path)
     print(f"ref image: {ref_image}")
     model_config.controlnet_map["controlnet_ref"]["ref_image"] = ref_image
+    model_config.head_prompt = prompt
     is_v2 = is_v2_motion_module(data_dir.joinpath(model_config.motion_module))
     infer_config: InferenceConfig = get_infer_config(is_v2)
 
