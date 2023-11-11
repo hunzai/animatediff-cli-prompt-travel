@@ -20,7 +20,7 @@ class Cliper:
         # output_video_path = os.path.join(output_folder, f"{video_name}.mp4")
         stream.download(output_path=output_folder, filename=f"{video_name}.mp4")
 
-    def create_clips(self, input_video_path, clip_duration=5, output_folder = ""):
+    def create_clips(self, input_video_path, clip_duration=5, output_folder=""):
         video_length = self.get_video_length(input_video_path)
         total_clips = int(video_length // clip_duration)
 
@@ -36,34 +36,45 @@ class Cliper:
 
         return clips  # Return the list containing paths of the created clips
 
-    def extract_frames(self, video_path, frame_rate, output_folder, x):
+    def extract_frames(self, video_path, frame_rate, output_folder, x, start_time=None, end_time=None):
         if not os.path.exists(output_folder):
             os.makedirs(output_folder)
 
         video = cv2.VideoCapture(video_path)
         total_frames = video.get(cv2.CAP_PROP_FRAME_COUNT)
         fps = video.get(cv2.CAP_PROP_FPS)
-        print(f"frame rate: {frame_rate} , total frames: {total_frames}, fps: {fps}")
+        print(f"Frame rate: {frame_rate}, Total frames: {total_frames}, FPS: {fps}")
         frame_interval = x  # Set the frame interval to x
-        print(f"frame interval: {frame_interval}")
+        print(f"Frame interval: {frame_interval}")
+
+        # Calculate start and end frames
+        start_frame = int(start_time * fps) if start_time is not None else 0
+        end_frame = int(end_time * fps) if end_time is not None else total_frames
 
         count = 0
         saved_count = 0  # Separate counter for saved frame sequence
         while True:
             success, image = video.read()
-            if not success:
+            if not success or count > end_frame:
                 break
-            if count % frame_interval == 0:
-                cv2.imwrite(os.path.join(output_folder, f"{saved_count:05}.png"), image)  # Use saved_count for naming
+
+            if count >= start_frame and count % frame_interval == 0:
+                cv2.imwrite(
+                    os.path.join(output_folder, f"{saved_count:05}.png"), image
+                )  # Use saved_count for naming
                 saved_count += 1
+
             count += 1
 
         video.release()
 
-
     def images_to_video(self, image_dir, fps, output_file):
         # Get all files from the directory
-        files = [os.path.join(image_dir, f) for f in os.listdir(image_dir) if f.endswith(".png") or f.endswith(".jpg")]
+        files = [
+            os.path.join(image_dir, f)
+            for f in os.listdir(image_dir)
+            if f.endswith(".png") or f.endswith(".jpg")
+        ]
 
         # Sort the files by name
         files.sort()
