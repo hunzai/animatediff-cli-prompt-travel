@@ -13,7 +13,7 @@ class Cliper:
         video.release()
         return video_length
 
-    def download_from_yt(self, url, start_time, end_time, video_name, output_folder):
+    def download_from_yt(self, url, video_name, output_folder):
         yt = YouTube(url)
         stream = yt.streams.get_highest_resolution()
         input_video_path = os.path.join(output_folder, f"{stream.default_filename}")
