@@ -310,17 +310,6 @@ def generate(
             help="Show version",
         ),
     ] = None,
-    ref_image: Annotated[
-        Optional[Path],
-        typer.Option(
-            "--ref_image",
-            "-r",
-            path_type=Path,
-            readable=True,
-            dir_okay=False,
-            help="set ref_image in controlnet_map",
-        ),
-    ] = None,
     prompt: Annotated[
         str,
         typer.Option(
@@ -353,11 +342,6 @@ def generate(
     config_path = config_path.absolute()
     logger.info(f"Using generation config: {path_from_cwd(config_path)}")
     model_config: ModelConfig = get_model_config(config_path)
-    print(f"ref image: {ref_image}")
-
-    if ref_image:
-        model_config.controlnet_map["controlnet_ref"]["enable"] = True
-        model_config.controlnet_map["controlnet_ref"]["ref_image"] = ref_image
 
     model_config.head_prompt = prompt
     print(f"prompt: {model_config.head_prompt }")
