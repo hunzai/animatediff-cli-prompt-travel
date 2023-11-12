@@ -1,0 +1,124 @@
+{
+  "name": "realistic",
+  "path": "models/sd/dreamshaper_8.safetensors",
+  "vae_path": "",
+  "motion_module": "models/motion-module/mm_sd_v15_v2.ckpt",
+  "compile": false,
+  "tensor_interpolation_slerp": true,
+  "seed": [918493036],
+  "scheduler": "k_dpmpp_2m_sde",
+  "steps": 20,
+  "guidance_scale": 7.5,
+  "clip_skip": 1,
+  "prompt_fixed_ratio": 0.8,
+  "head_prompt": "A breath-taking view of  apricot trees garden in perfect rows ,stones in the meadows,  cinematic light, atmospheric effects",
+  "prompt_map": {
+    "0": "a snow peak in background,(spring season)",
+    "16": "a snow peak in background,(spring season), (((clouds)))",
+    "32": "a snow peak in background,(spring season), (((clouds)))"
+  },
+  "tail_prompt": "art in the style of andreas rocha and studio ghibli",
+  "n_prompt": [
+    "(((european architecture))), modern city, many houses, (((blurry))), cartoon, too many mountains, illustration, (worst quality, low quality, normal quality:2), (watermark), Japanese architecture,  intricate, face, highly detailed,  sharp focus,  unreal engine, 4 k, 8 k,  art in the style of andreas rocha and studio ghibli"
+  ],
+  "is_single_prompt_mode": false,
+  "lora_map": {},
+  "motion_lora_map": {},
+  "ip_adapter_map": {
+    "enable": false,
+    "input_image_dir": "ip_adapter_image/test",
+    "save_input_image": true,
+    "scale": 0.1,
+    "is_plus_face": true,
+    "is_plus": true
+  },
+  "controlnet_map": {
+    "input_image_dir": "controlnet_image/vid2vid",
+    "max_samples_on_vram": 200,
+    "max_models_on_vram": 3,
+    "save_detectmap": true,
+    "preprocess_on_gpu": true,
+    "is_loop": true,
+    "controlnet_tile": {
+      "enable": false,
+      "use_preprocessor": true,
+      "preprocessor": {
+        "type": "tile_resample",
+        "param": {
+          "down_sampling_rate": 2.0
+        }
+      },
+      "guess_mode": false,
+      "controlnet_conditioning_scale": 1.0,
+      "control_guidance_start": 0.0,
+      "control_guidance_end": 1.0,
+      "control_scale_list": [1]
+    },
+    "controlnet_depth": {
+      "enable": true,
+      "use_preprocessor": true,
+      "guess_mode": false,
+      "controlnet_conditioning_scale": 1.0,
+      "control_guidance_start": 0.0,
+      "control_guidance_end": 1.0,
+      "control_scale_list": [0.5, 0.4, 0.3, 0.2, 0.1]
+    },
+    "controlnet_ref": {
+      "enable": true,
+      "ref_image": "0000.png",
+      "attention_auto_machine_weight": 1.0,
+      "gn_auto_machine_weight": 1.0,
+      "style_fidelity": 0.5,
+      "reference_attn": true,
+      "reference_adain": false,
+      "scale_pattern": [0.5]
+    }
+  },
+  "upscale_config": {
+    "scheduler": "ddim",
+    "steps": 20,
+    "strength": 0.5,
+    "guidance_scale": 10,
+    "controlnet_tile": {
+      "enable": false,
+      "controlnet_conditioning_scale": 1.0,
+      "guess_mode": false,
+      "control_guidance_start": 0.0,
+      "control_guidance_end": 1.0
+    },
+    "controlnet_line_anime": {
+      "enable": false,
+      "controlnet_conditioning_scale": 1.0,
+      "guess_mode": false,
+      "control_guidance_start": 0.0,
+      "control_guidance_end": 1.0
+    },
+    "controlnet_ip2p": {
+      "enable": false,
+      "controlnet_conditioning_scale": 0.5,
+      "guess_mode": false,
+      "control_guidance_start": 0.0,
+      "control_guidance_end": 1.0
+    },
+    "controlnet_ref": {
+      "enable": false,
+      "use_frame_as_ref_image": false,
+      "use_1st_frame_as_ref_image": false,
+      "ref_image": "",
+      "attention_auto_machine_weight": 1.0,
+      "gn_auto_machine_weight": 1.0,
+      "style_fidelity": 0.25,
+      "reference_attn": true,
+      "reference_adain": false
+    }
+  },
+  "stylize_config": {},
+  "output": {
+    "format": "mp4",
+    "fps": 30,
+    "encode_param": {
+      "crf": 10
+    }
+  },
+  "result": {}
+}
