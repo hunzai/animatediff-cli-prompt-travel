@@ -310,14 +310,6 @@ def generate(
             help="Show version",
         ),
     ] = None,
-    prompt: Annotated[
-        str,
-        typer.Option(
-            "--prompt",
-            "-p",
-            help="set prompt to overide from the prompt.json",
-        ),
-    ] = None,
     guidance_scale: Annotated[
         float,
         typer.Option("--guidance_scale", "-gc", min=1, max=15, help="guidance_scale"),
@@ -342,9 +334,6 @@ def generate(
     config_path = config_path.absolute()
     logger.info(f"Using generation config: {path_from_cwd(config_path)}")
     model_config: ModelConfig = get_model_config(config_path)
-
-    model_config.head_prompt = prompt
-    print(f"prompt: {model_config.head_prompt }")
     model_config.guidance_scale = guidance_scale
     model_config.seed[0] = seed
     is_v2 = is_v2_motion_module(data_dir.joinpath(model_config.motion_module))
