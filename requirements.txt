@@ -95,3 +95,8 @@ tzdata==2023.3
 urllib3==1.26.13
 xformers
 zipp==3.17.0
+controlnet_aux
+cohere
+tiktoken
+openai
+tensorrt
