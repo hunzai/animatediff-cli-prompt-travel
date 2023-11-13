@@ -265,7 +265,7 @@ class Animate:
       if not os.path.exists(PATH_HUGGING_FACE) or not os.path.isfile(PATH_HUGGING_FACE_SD_V15):
         #
         subprocess.run([
-            "aria2c", "--console-log-level=error", "-c", "-x", "16", "-k", "1M", "https://huggingface.co/runwayml/stable-diffusion-v1-5", "-d", str(PATH_HUGGING_FACE), "-o"
+            "aria2c", "--console-log-level=error", "-c", "-x", "16", "-k", "1M", "https://huggingface.co/runwayml/stable-diffusion-v1-5", "-d", str(PATH_HUGGING_FACE)
         ])
         # !aria2c --console-log-level=error -c -x 16 -s 16 -k 1M https://huggingface.co/runwayml/stable-diffusion-v1-5 -d $MODEL_PATH/huggingface -o
         print("RUNWAY SD1.5 download success (not found earlier)")
@@ -274,7 +274,7 @@ class Animate:
       if not os.path.exists(PATH_MOTION_MODULE) or not os.path.isfile(PATH_MOTION_MODULE_SD):
         #
         subprocess.run([
-            "aria2c", "--console-log-level=error", "-c", "-x", "16", "-k", "1M", "https://huggingface.co/guoyww/animatediff/blob/main/mm_sd_v15_v2.ckpt", "-d", str(PATH_MOTION_MODULE), "-o", "mm_sd_v15_v2.ckpt"
+            "aria2c", "--console-log-level=error", "-c", "-x", "16", "-k", "1M", "https://huggingface.co/camenduru/AnimateDiff/resolve/main/mm_sd_v15_v2.ckpt", "-d", str(PATH_MOTION_MODULE), "-o", "mm_sd_v15_v2.ckpt"
         ])
         # !aria2c --console-log-level=error -c -x 16 -s 16 -k 1M https://huggingface.co/camenduru/AnimateDiff/resolve/main/mm_sd_v15_v2.ckpt -d $MODEL_PATH/motion-module -o mm_sd_v15_v2.ckpt
         print("MM SD animatediff download success (not found earlier)")
