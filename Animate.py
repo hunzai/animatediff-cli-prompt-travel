@@ -248,7 +248,7 @@ class Animate:
 
       #
       PATH_HUGGING_FACE = os.path.join(MODEL_REPO_PATH, "huggingface")
-      PATH_HUGGING_FACE_SD_V15 = os.path.join(PATH_HUGGING_FACE, "v1-5-pruned-emaonly.ckpt")
+      PATH_HUGGING_FACE_SD_V15 = os.path.join(PATH_HUGGING_FACE, "stable-diffusion-v1-5")
 
       #
       PATH_MOTION_MODULE = os.path.join(MODEL_REPO_PATH, "motion-module")
@@ -322,19 +322,17 @@ class Animate:
       )
 
       #
-      PATH_HUGGING_FACE = os.path.join(MODEL_REPO_PATH, "huggingface")
-      PATH_MOTION_MODULE = os.path.join(MODEL_REPO_PATH, "motion-module")
-      PATH_SD = os.path.join(MODEL_REPO_PATH, "sd")
-      PATH_DWPose = os.path.join(MODEL_REPO_PATH, "DWPose")
-      PATH_DWPose_DW11 = os.path.join(PATH_DWPose, "dw-ll_ucoco_384.onnx")
+      PATH_HUGGING_FACE = "huggingface"
+      PATH_MOTION_MODULE = "motion-module"
+      PATH_SD = "sd"
+      PATH_DWPose = "DWPose"
 
       #
       for model in [
           PATH_HUGGING_FACE,
           PATH_MOTION_MODULE,
           PATH_SD,
-          PATH_DWPose,
-          PATH_DWPose_DW11
+          PATH_DWPose
       ]:
         # copy from [Repo Parent]/models to [Repo Parent]/[Repo]/data/models
         model_base_path = os.path.join(MODEL_REPO_PATH, model)
@@ -360,7 +358,7 @@ class Animate:
         print("Config Read error:", e)
 
   # update config
-  def update_config(self, var_dict):
+  def update_config_cntrl_map(self, var_dict):
       #
       if self.config is None:
         raise Exception("The config is not initialized yet")
@@ -369,7 +367,7 @@ class Animate:
           if key in self.config["controlnet_map"]:
               self.config["controlnet_map"][key]["enable"] = str(value).lower()
 
-  def update_config_set_ytframes(self, downloaded_video_name, video_frames_dir):
+  def update_config_set_ytframes(self, var_dict, downloaded_video_name, video_frames_dir):
       # update control net image path
       controlnet_image_path_video = os.path.join(
           self.controlnet_images_path,
@@ -377,6 +375,11 @@ class Animate:
       )
       self.config["controlnet_map"]["input_image_dir"] = controlnet_image_path_video
 
+      # remote dir
+      shutil.rmtree(controlnet_image_path_video)
+
+      # create dir
+      os.mkdir(controlnet_image_path_video)
 
       # create directory for each enabled control
       for cntrl in var_dict:
@@ -388,12 +391,12 @@ class Animate:
           print(f"creating dir {cntrl_dir_path}")
 
           # remote dir
-          shutil. rmtree(cntrl_dir_path)
+          shutil.rmtree(cntrl_dir_path)
 
           # create dir
           os.mkdir(cntrl_dir_path)
 
           # copy all video frames to cntrl_dir
-          shutil.copy2(video_frames_dir, cntrl_dir_path)
+          shutil.copytree(video_frames_dir, cntrl_dir_path)
 
           print(f"copy from ${video_frames_dir} to ${cntrl_dir_path}")
