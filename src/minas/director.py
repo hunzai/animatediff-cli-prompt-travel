@@ -59,7 +59,7 @@ class Director:
         # self.openai_client = OpenAI()
 
         # update controlnet_image path
-        self.controlnet_images_path = os.path.join(self.REPO_PATH, "data", "controlnet_image")
+        # self.controlnet_images_path = os.path.join(self.REPO_PATH, "data", "controlnet_image")
 
     #
     def generate_from_prompt(self, head_prompt, ref_image=None):
@@ -211,9 +211,9 @@ class Director:
     #     print("Standard Error:")
     #     print(subprocess_out.stderr)
 
-    def init_cliper(self):
+    def init_cliper(self, repo_path):
         # add helpers to module
-        PATH_HELPER_CLIPER = os.path.join(self.REPO_PATH, "src", "helpers")
+        PATH_HELPER_CLIPER = os.path.join(repo_path, "src", "helpers")
 
         #
         subprocess.run(["pip", "install", "pytube"])
@@ -234,28 +234,28 @@ class Director:
         self.copy_models_to_repo()
 
     # downloads models to [REPO Parent]/models e.g. '/content/drive/MyDrive/AI/models
-    def download_models(self):
+    def download_models(self, models_path):
         print("Downloading models")
 
         #
         subprocess.run(["apt", "-y", "install", "-qq", "aria2"])
 
         #
-        MODEL_REPO_PATH = os.path.join(self.REPO_PATH_PARENT, "models")
+        # MODEL_REPO_PATH = os.path.join(self.REPO_PATH_PARENT, "models")
 
         #
-        PATH_HUGGING_FACE = os.path.join(MODEL_REPO_PATH, "huggingface")
+        PATH_HUGGING_FACE = os.path.join(models_path, "huggingface")
         PATH_HUGGING_FACE_SD_V15 = os.path.join(PATH_HUGGING_FACE, "stable-diffusion-v1-5")
 
         #
-        PATH_MOTION_MODULE = os.path.join(MODEL_REPO_PATH, "motion-module")
+        PATH_MOTION_MODULE = os.path.join(models_path, "motion-module")
         PATH_MOTION_MODULE_SD = os.path.join(PATH_MOTION_MODULE, "mm_sd_v15_v2.ckpt")
 
-        PATH_SD = os.path.join(MODEL_REPO_PATH, "sd")
+        PATH_SD = os.path.join(models_path, "sd")
         PATH_SD_MISTOON = os.path.join(PATH_SD, "mistoonAnime_v20.safetensors")
         PATH_SD_DREAM = os.path.join(PATH_SD, "dreamshaper.safetensors")
 
-        PATH_DWPose = os.path.join(MODEL_REPO_PATH, "DWPose")
+        PATH_DWPose = os.path.join(models_path, "DWPose")
         PATH_DWPose_DW11 = os.path.join(PATH_DWPose, "dw-ll_ucoco_384.onnx")
 
         #
@@ -370,27 +370,27 @@ class Director:
         # !aria2c --console-log-level=error -c -x 16 -s 16 -k 1M https://huggingface.co/camenduru/AnimateDiff/resolve/main/mm_sd_v15_v2.ckpt -d $MODEL_PATH/motion-module -o mm_sd_v15_v2.ckpt
         # !aria2c --console-log-level=error -c -x 16 -s 16 -k 1M https://civitai.com/api/download/models/108545 -d $MODEL_PATH/sd -o mistoonAnime_v20.safetensors
 
-    def copy_models_to_repo(self):
-        print("Copying models to repo")
+    # def copy_models_to_repo(self):
+    #     print("Copying models to repo")
 
-        #
-        MODEL_REPO_PATH = os.path.join(self.REPO_PATH_PARENT, "models")
-        MODEL_PATH = os.path.join(self.REPO_PATH, "data", "models")
+    #     #
+    #     MODEL_REPO_PATH = os.path.join(self.REPO_PATH_PARENT, "models")
+    #     MODEL_PATH = os.path.join(self.REPO_PATH, "data", "models")
 
-        #
-        PATH_HUGGING_FACE = "huggingface"
-        PATH_MOTION_MODULE = "motion-module"
-        PATH_SD = "sd"
-        PATH_DWPose = "DWPose"
+    #     #
+    #     PATH_HUGGING_FACE = "huggingface"
+    #     PATH_MOTION_MODULE = "motion-module"
+    #     PATH_SD = "sd"
+    #     PATH_DWPose = "DWPose"
 
-        #
-        for model in [PATH_HUGGING_FACE, PATH_MOTION_MODULE, PATH_SD, PATH_DWPose]:
-            # copy from [Repo Parent]/models to [Repo Parent]/[Repo]/data/models
-            model_base_path = os.path.join(MODEL_REPO_PATH, model)
-            model_new_path = os.path.join(MODEL_PATH, model)
+    #     #
+    #     for model in [PATH_HUGGING_FACE, PATH_MOTION_MODULE, PATH_SD, PATH_DWPose]:
+    #         # copy from [Repo Parent]/models to [Repo Parent]/[Repo]/data/models
+    #         model_base_path = os.path.join(MODEL_REPO_PATH, model)
+    #         model_new_path = os.path.join(MODEL_PATH, model)
 
-            #
-            shutil.copytree(model_base_path, model_new_path, dirs_exist_ok=True)
+    #         #
+    #         shutil.copytree(model_base_path, model_new_path, dirs_exist_ok=True)
 
     # set config
     def set_config(self, filepath):
