@@ -97,9 +97,9 @@ class Animate:
         ref_image = dalle_ref_img
 
     # update config
-    if self.ref_image is not None:
+    if ref_image is not None:
       self.config["controlnet_map"]["controlnet_ref"]["enable"] = True
-      self.config["controlnet_map"]["controlnet_ref"]["ref_image"] = self.ref_image
+      self.config["controlnet_map"]["controlnet_ref"]["ref_image"] = ref_image
 
     #
     subprocess.run([
@@ -352,10 +352,27 @@ class Animate:
             self.config = json.load(json_file)  # Read and convert JSON data into Python object
 
         #
+        self.save_current_config()
+
+        #
         print("Read config success")
 
       except Exception as e:
         print("Config Read error:", e)
+
+  # set config
+  def save_current_config(self):
+      #
+      if self.config is None:
+        raise Exception("The config is not initialized yet")
+
+      #
+      with open(self.config_json_path, 'w') as json_file:  # Open the file
+          json.dump(self.config, json_file)  # Read and convert JSON data into Python object
+
+      #
+      print("Update config success")
+
 
   # update config
   def update_config_cntrl_map(self, var_dict):
@@ -367,6 +384,9 @@ class Animate:
           if key in self.config["controlnet_map"]:
               self.config["controlnet_map"][key]["enable"] = str(value).lower()
 
+      #
+      self.save_current_config()
+
   def update_config_set_ytframes(self, var_dict, downloaded_video_name, video_frames_dir):
       # update control net image path
       controlnet_image_path_video = os.path.join(
@@ -376,10 +396,13 @@ class Animate:
       self.config["controlnet_map"]["input_image_dir"] = controlnet_image_path_video
 
       # remote dir
-      shutil.rmtree(controlnet_image_path_video)
+      shutil.rmtree(controlnet_image_path_video, ignore_errors=True)
 
       # create dir
-      os.mkdir(controlnet_image_path_video)
+      try:
+        os.makedirs(controlnet_image_path_video, exist_ok=True)
+      except:
+        pass
 
       # create directory for each enabled control
       for cntrl in var_dict:
@@ -391,12 +414,18 @@ class Animate:
           print(f"creating dir {cntrl_dir_path}")
 
           # remote dir
-          shutil.rmtree(cntrl_dir_path)
+          shutil.rmtree(cntrl_dir_path, ignore_errors=True)
 
           # create dir
-          os.mkdir(cntrl_dir_path)
+          try:
+            os.makedirs(cntrl_dir_path, exist_ok=True)
+          except:
+            pass
 
           # copy all video frames to cntrl_dir
           shutil.copytree(video_frames_dir, cntrl_dir_path)
 
           print(f"copy from ${video_frames_dir} to ${cntrl_dir_path}")
+
+      #
+      self.save_current_config()
