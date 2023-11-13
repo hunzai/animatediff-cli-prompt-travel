@@ -46,17 +46,17 @@ class Director:
         else:
             self.REPO_PATH_PARENT = os.getcwd()
 
-        # build animate-diff src
-        self.build_animate_diff()
+        # # build animate-diff src
+        # self.build_animate_diff()
 
-        # init repo var on fs
-        self.init_cliper()
+        # # init repo var on fs
+        # self.init_cliper()
 
-        # setup models
-        self.setup_models()
+        # # setup models
+        # self.setup_models()
 
-        # init openai client
-        self.openai_client = OpenAI()
+        # # init openai client
+        # self.openai_client = OpenAI()
 
         # update controlnet_image path
         self.controlnet_images_path = os.path.join(self.REPO_PATH, "data", "controlnet_image")
