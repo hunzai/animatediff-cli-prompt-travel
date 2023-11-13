@@ -7,7 +7,7 @@ import sys
 # import git
 # import google.colab
 # from google.colab import drive
-from openai import OpenAI
+# from openai import OpenAI
 from pip._internal.commands import install
 
 
@@ -30,21 +30,21 @@ class Director:
         self.seed = 123123
 
         #
-        OPENAI_API_KEY = os.environ["OPENAI_API_KEY"]
+        # OPENAI_API_KEY = os.environ["OPENAI_API_KEY"]
 
-        # init git repo var
-        self.URL_ANIMATEDIFF_REPO = "https://github.com/hunzai/animatediff-cli-prompt-travel"
+        # # init git repo var
+        # self.URL_ANIMATEDIFF_REPO = "https://github.com/hunzai/animatediff-cli-prompt-travel"
 
-        # check if colab running
-        self.in_colab = "google.colab" in sys.modules
+        # # check if colab running
+        # self.in_colab = "google.colab" in sys.modules
 
-        # REPO URLs
-        if self.in_colab:
-            self.REPO_PATH_PARENT = "/content/drive/MyDrive/AI"
+        # # REPO URLs
+        # if self.in_colab:
+        #     self.REPO_PATH_PARENT = "/content/drive/MyDrive/AI"
 
-            print("Please ensure followign path exsists in Gdrive", self.REPO_PATH_PARENT)
-        else:
-            self.REPO_PATH_PARENT = os.getcwd()
+        #     print("Please ensure followign path exsists in Gdrive", self.REPO_PATH_PARENT)
+        # else:
+        #     self.REPO_PATH_PARENT = os.getcwd()
 
         # # build animate-diff src
         # self.build_animate_diff()
@@ -123,29 +123,29 @@ class Director:
             ]
         )
 
-    def generate_dalle_img(self, prompt=None):
-        #
-        response_path = None
+    # def generate_dalle_img(self, prompt=None):
+    #     #
+    #     response_path = None
 
-        #
-        try:
-            if prompt is None:
-                prompt = self.head_prompt
+    #     #
+    #     try:
+    #         if prompt is None:
+    #             prompt = self.head_prompt
 
-            #
-            response_dalle = self.openai_client.images.generate(
-                model="dall-e-3",
-                prompt=prompt,
-                size="1024x1024",
-                quality="standard",
-                n=1,
-            )
+    #         #
+    #         response_dalle = self.openai_client.images.generate(
+    #             model="dall-e-3",
+    #             prompt=prompt,
+    #             size="1024x1024",
+    #             quality="standard",
+    #             n=1,
+    #         )
 
-            response_path = response_dalle.data[0].url
-        except Exception as e:
-            print("Dall-e generation faulure:", e)
+    #         response_path = response_dalle.data[0].url
+    #     except Exception as e:
+    #         print("Dall-e generation faulure:", e)
 
-        return response_path
+    #     return response_path
 
     # 1. mount GDRIVE if in colab
     # 2. clone ANIMATEDIFF REPO
