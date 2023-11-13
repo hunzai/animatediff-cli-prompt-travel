@@ -4,9 +4,9 @@ import shutil
 import subprocess
 import sys
 
-import git
-import google.colab
-from google.colab import drive
+# import git
+# import google.colab
+# from google.colab import drive
 from openai import OpenAI
 from pip._internal.commands import install
 
@@ -150,66 +150,66 @@ class Director:
     # 1. mount GDRIVE if in colab
     # 2. clone ANIMATEDIFF REPO
     # 3. build repo fromsrc
-    def build_animate_diff(self):
-        #
-        in_colab = "google.colab" in sys.modules
+    # def build_animate_diff(self):
+    #     #
+    #     in_colab = "google.colab" in sys.modules
 
-        #
-        if in_colab == True:
-            print("Mounting Gdrive...")
-            drive.mount("/content/drive", force_remount=True)
+    #     #
+    #     if in_colab == True:
+    #         print("Mounting Gdrive...")
+    #         # drive.mount("/content/drive", force_remount=True)
 
-            #
-            self.get_animatediff_git_repo()
+    #         #
+    #         self.get_animatediff_git_repo()
 
-            # program routine stands at /animatediff-cli-prompt-travel
+    #         # program routine stands at /animatediff-cli-prompt-travel
 
-            # Perform an editable install
-            self.build_animatediff_src()
+    #         # Perform an editable install
+    #         self.build_animatediff_src()
 
-        else:
-            ## implement build script for local execution
-            ## TODO
-            pass
+    #     else:
+    #         ## implement build script for local execution
+    #         ## TODO
+    #         pass
 
-    def get_animatediff_git_repo(self):
-        print("Cloning animatediff repo...")
+    # def get_animatediff_git_repo(self):
+    #     print("Cloning animatediff repo...")
 
-        #
-        self.REPO_PATH = os.path.join(self.REPO_PATH_PARENT, "animatediff-cli-prompt-travel")
+    #     #
+    #     self.REPO_PATH = os.path.join(self.REPO_PATH_PARENT, "animatediff-cli-prompt-travel")
 
-        # clearup repo dir
-        shutil.rmtree(self.REPO_PATH, ignore_errors=True)
+    #     # clearup repo dir
+    #     shutil.rmtree(self.REPO_PATH, ignore_errors=True)
 
-        # clone repo - !git clone https://github.com/hunzai/animatediff-cli-prompt-travel
-        repo_animatediff = git.Repo.clone_from(
-            self.URL_ANIMATEDIFF_REPO, self.REPO_PATH, branch="experiments"
-        )
+    #     # clone repo - !git clone https://github.com/hunzai/animatediff-cli-prompt-travel
+    #     repo_animatediff = git.Repo.clone_from(
+    #         self.URL_ANIMATEDIFF_REPO, self.REPO_PATH, branch="experiments"
+    #     )
 
-        # reset checkout
-        repo_animatediff.git.reset("--hard")
+    #     # reset checkout
+    #     repo_animatediff.git.reset("--hard")
 
-        # pull origin - !git pull origin experiments
-        repo_animatediff.remotes.origin.pull()
+    #     # pull origin - !git pull origin experiments
+    #     repo_animatediff.remotes.origin.pull()
 
-    def build_animatediff_src(self):
-        #
-        print("Building animate diff from src...")
+    # def build_animatediff_src(self):
+    #     #
+    #     print("Building animate diff from src...")
 
-        #
-        subprocess.run(["pip", "install", "-e", self.REPO_PATH])
+    #     #
+    #     subprocess.run(["pip", "install", "-e", self.REPO_PATH])
 
-        # test src build
-        subprocess_out = subprocess.run(
-            ["animatediff", "--help"], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True
-        )
+    #     # test src build
+    #     subprocess_out = subprocess.run(
+    #         ["animatediff", "--help"], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True
+    #     )
 
-        # Access stdout and stderr
-        print("Standard Output:")
-        print(subprocess_out.stdout)
+    #     # Access stdout and stderr
+    #     print("Standard Output:")
+    #     print(subprocess_out.stdout)
 
-        print("Standard Error:")
-        print(subprocess_out.stderr)
+    #     print("Standard Error:")
+    #     print(subprocess_out.stderr)
 
     def init_cliper(self):
         # add helpers to module
