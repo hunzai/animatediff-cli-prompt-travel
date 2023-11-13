@@ -94,12 +94,15 @@ class Animate:
 
       #
       if dalle_ref_img is not None:
-        ref_image = dalle_ref_img
+        self.ref_image = dalle_ref_img
 
     # update config
-    if ref_image is not None:
+    if self.ref_image is not None:
       self.config["controlnet_map"]["controlnet_ref"]["enable"] = True
-      self.config["controlnet_map"]["controlnet_ref"]["ref_image"] = ref_image
+      self.config["controlnet_map"]["controlnet_ref"]["ref_image"] = self.ref_image
+
+    #
+    print("Submitting Animatediff job...")
 
     #
     subprocess.run([
@@ -423,7 +426,7 @@ class Animate:
             pass
 
           # copy all video frames to cntrl_dir
-          shutil.copytree(video_frames_dir, cntrl_dir_path)
+          shutil.copytree(video_frames_dir, cntrl_dir_path, dirs_exist_ok=True)
 
           print(f"copy from ${video_frames_dir} to ${cntrl_dir_path}")
 
