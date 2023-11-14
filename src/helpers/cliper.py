@@ -96,3 +96,24 @@ class Cliper:
 
         out.release()
         print(f"Video {output_file} is created successfully from images in {image_dir}")
+
+    def video2frames(
+        self, download_url, output_video_name, output_path, frame_rate, interval, start_time, end_time
+    ):
+        output_video_path = os.path.join(output_path, "video")
+        os.mkdir(output_video_path)
+
+        output_frames_path = os.path.join(output_path, "frames")
+        os.mkdir(output_frames_path)
+
+        self.cliper.download_from_yt(
+            url=download_url, video_name=output_video_name, output_folder=output_video_path
+        )
+        self.cliper.extract_frames(
+            output_video_path,
+            frame_rate,
+            output_frames_path,
+            interval,
+            start_time=start_time,
+            end_time=end_time,
+        )
