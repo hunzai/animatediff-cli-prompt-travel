@@ -64,7 +64,6 @@ pyre-extensions==0.0.29
 pyreadline3==3.4.1
 PySocks==1.7.1
 python-dateutil==2.8.2
-pytube==15.0.0
 pytz==2023.3.post1
 PyYAML==6.0.1
 regex==2023.10.3
@@ -102,3 +101,4 @@ openai
 tensorrt
 git
 google.colab
+pytube==15.0.0
