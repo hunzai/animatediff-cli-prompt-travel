@@ -50,7 +50,7 @@ class Director:
         # self.build_animate_diff()
 
         # # init repo var on fs
-        # self.init_cliper()
+        self.init_cliper()
 
         # # setup models
         # self.setup_models()
@@ -216,7 +216,7 @@ class Director:
         PATH_HELPER_CLIPER = os.path.join(repo_path, "src", "helpers")
 
         #
-        subprocess.run(["pip", "install", "pytube"])
+        # subprocess.run(["pip", "install", "pytube"])
 
         #
         sys.path.append(PATH_HELPER_CLIPER)
