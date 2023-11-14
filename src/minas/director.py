@@ -214,7 +214,13 @@ class Director:
     def init_cliper(self, repo_path):
         # add helpers to module
         PATH_HELPER_CLIPER = os.path.join(repo_path, "src", "helpers")
+        #
+        subprocess.run(["pip", "install", "pytube"])
+
+        #
         sys.path.append(PATH_HELPER_CLIPER)
+
+        #
         import cliper
 
         self.cliper = cliper
