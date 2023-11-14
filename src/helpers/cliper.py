@@ -106,10 +106,8 @@ class Cliper:
         output_frames_path = os.path.join(output_path, "frames")
         os.mkdir(output_frames_path)
 
-        self.cliper.download_from_yt(
-            url=download_url, video_name=output_video_name, output_folder=output_video_path
-        )
-        self.cliper.extract_frames(
+        self.download_from_yt(url=download_url, video_name=output_video_name, output_folder=output_video_path)
+        self.extract_frames(
             output_video_path,
             frame_rate,
             output_frames_path,
