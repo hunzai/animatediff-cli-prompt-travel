@@ -459,24 +459,24 @@ class Director:
         #
         self.save_current_config()
 
-    def update_config_set_ytframes(self, var_dict, downloaded_video_name, video_frames_dir):
+    def update_config_set_ytframes(self, controlnet_images_path, var_dict, video_frames_dir):
         # update control net image path
-        controlnet_image_path_video = os.path.join(self.controlnet_images_path, downloaded_video_name)
-        self.config["controlnet_map"]["input_image_dir"] = controlnet_image_path_video
+        # controlnet_image_path_video = os.path.join(controlnet_images_path, downloaded_video_name)
+        self.config["controlnet_map"]["input_image_dir"] = video_frames_dir
 
-        # remote dir
-        shutil.rmtree(controlnet_image_path_video, ignore_errors=True)
+        # # remote dir
+        # shutil.rmtree(controlnet_image_path_video, ignore_errors=True)
 
-        # create dir
-        try:
-            os.makedirs(controlnet_image_path_video, exist_ok=True)
-        except:
-            pass
+        # # create dir
+        # try:
+        #     os.makedirs(controlnet_image_path_video, exist_ok=True)
+        # except:
+        #     pass
 
         # create directory for each enabled control
         for cntrl in var_dict:
             if var_dict[cntrl]:
-                cntrl_dir_path = os.path.join(controlnet_image_path_video, cntrl)
+                cntrl_dir_path = os.path.join(controlnet_images_path, cntrl)
                 print(f"creating dir {cntrl_dir_path}")
 
                 # remote dir
