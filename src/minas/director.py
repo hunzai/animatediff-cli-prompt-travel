@@ -9,7 +9,6 @@ import sys
 # from google.colab import drive
 # from openai import OpenAI
 from pip._internal.commands import install
-import cliper
 
 
 class Director:
@@ -216,6 +215,8 @@ class Director:
         # add helpers to module
         PATH_HELPER_CLIPER = os.path.join(repo_path, "src", "helpers")
         sys.path.append(PATH_HELPER_CLIPER)
+        import cliper
+
         self.cliper = cliper
 
     def video2frames(
