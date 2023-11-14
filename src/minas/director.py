@@ -211,49 +211,49 @@ class Director:
     #     print("Standard Error:")
     #     print(subprocess_out.stderr)
 
-    def init_cliper(self, repo_path):
-        # add helpers to module
-        PATH_HELPER_CLIPER = os.path.join(repo_path, "src", "helpers")
-        #
-        subprocess.run(["pip", "install", "pytube"])
+    # def init_cliper(self, repo_path):
+    #     # add helpers to module
+    #     PATH_HELPER_CLIPER = os.path.join(repo_path, "src", "helpers")
+    #     #
+    #     subprocess.run(["pip", "install", "pytube"])
 
-        #
-        sys.path.append(PATH_HELPER_CLIPER)
+    #     #
+    #     sys.path.append(PATH_HELPER_CLIPER)
 
-        #
-        import cliper
+    #     #
+    #     import cliper
 
-        self.cliper = cliper
+    #     self.cliper = cliper
 
-    def video2frames(
-        self,
-        repo_path,
-        download_url,
-        output_path,
-        output_video_name,
-        frame_rate=1,
-        interval=1,
-        start_time=1,
-        end_time=10,
-    ):
-        self.init_cliper(repo_path)
-        output_video_path = os.path.join(output_path, "video")
-        os.mkdir(output_video_path)
+    # def video2frames(
+    #     self,
+    #     repo_path,
+    #     download_url,
+    #     output_path,
+    #     output_video_name,
+    #     frame_rate=1,
+    #     interval=1,
+    #     start_time=1,
+    #     end_time=10,
+    # ):
+    #     self.init_cliper(repo_path)
+    #     output_video_path = os.path.join(output_path, "video")
+    #     os.mkdir(output_video_path)
 
-        output_frames_path = os.path.join(output_path, "frames")
-        os.mkdir(output_frames_path)
+    #     output_frames_path = os.path.join(output_path, "frames")
+    #     os.mkdir(output_frames_path)
 
-        self.cliper.download_from_yt(
-            url=download_url, video_name=output_video_name, output_folder=output_video_path
-        )
-        self.cliper.extract_frames(
-            output_video_path,
-            frame_rate,
-            output_frames_path,
-            interval,
-            start_time=start_time,
-            end_time=end_time,
-        )
+    #     self.cliper.download_from_yt(
+    #         url=download_url, video_name=output_video_name, output_folder=output_video_path
+    #     )
+    #     self.cliper.extract_frames(
+    #         output_video_path,
+    #         frame_rate,
+    #         output_frames_path,
+    #         interval,
+    #         start_time=start_time,
+    #         end_time=end_time,
+    #     )
 
     # downloads models to [REPO Parent]/models e.g. '/content/drive/MyDrive/AI/models
     def download_models(self, models_path):
