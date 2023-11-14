@@ -238,7 +238,7 @@ class Director:
     ):
         self.init_cliper(repo_path)
         output_video_path = os.path.join(output_path, "video")
-        os.mkdir(output_path)
+        os.mkdir(output_video_path)
 
         output_frames_path = os.path.join(output_path, "frames")
         os.mkdir(output_frames_path)
