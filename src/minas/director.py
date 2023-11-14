@@ -50,7 +50,7 @@ class Director:
         # self.build_animate_diff()
 
         # # init repo var on fs
-        self.init_cliper()
+        # self.init_cliper()
 
         # # setup models
         # self.setup_models()
