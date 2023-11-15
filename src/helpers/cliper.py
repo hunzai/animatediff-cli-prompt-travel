@@ -37,9 +37,10 @@ class Cliper:
 
         return clips  # Return the list containing paths of the created clips
 
-    def extract_frames(self, video_path, frame_rate, output_folder, x, start_time=None, end_time=None):
-        if not os.path.exists(output_folder):
-            os.makedirs(output_folder)
+    def extract_frames(self, video_path, frame_rate, frames_output_folder_path, x, start_time, end_time):
+        print(f"frames are generating into {frames_output_folder_path}")
+        if not os.path.exists(frames_output_folder_path):
+            os.makedirs(frames_output_folder_path)
 
         video = cv2.VideoCapture(video_path)
         total_frames = video.get(cv2.CAP_PROP_FRAME_COUNT)
@@ -62,12 +63,12 @@ class Cliper:
 
             if count >= start_frame and count % frame_interval == 0:
                 cv2.imwrite(
-                    os.path.join(output_folder, f"{saved_count:05}.png"), image
+                    os.path.join(frames_output_folder_path, f"{saved_count:05}.png"), image
                 )  # Use saved_count for naming
                 saved_count += 1
 
             count += 1
-        print(f"frames are saved to {output_folder}")
+
         video.release()
 
     def images_to_video(self, image_dir, fps, output_file):
