@@ -16,10 +16,8 @@ class Cliper:
     def download_from_yt(self, url, video_output_path, filename):
         yt = YouTube(url)
         stream = yt.streams.get_highest_resolution()
-        # input_video_path = os.path.join(output_folder, f"{stream.default_filename}")
-        # output_video_path = os.path.join(output_folder, f"{video_name}.mp4")
-        print(f"Downloading video to {video_output_path}{filename}.mp4")
-        stream.download(output_path=video_output_path, filename=f"{filename}.mp4")
+        print(f"Downloading video to {video_output_path}/{filename}")
+        stream.download(output_path=video_output_path, filename=f"{filename}")
 
     def create_clips(self, input_video_path, clip_duration=5, output_folder=""):
         video_length = self.get_video_length(input_video_path)
@@ -38,7 +36,9 @@ class Cliper:
         return clips  # Return the list containing paths of the created clips
 
     def extract_frames(self, video_path, frame_rate, frames_output_folder_path, x, start_time, end_time):
+        print(f"reading video from {video_path}")
         print(f"frames are generating into {frames_output_folder_path}")
+
         if not os.path.exists(frames_output_folder_path):
             os.makedirs(frames_output_folder_path)
 
@@ -49,7 +49,6 @@ class Cliper:
         frame_interval = x  # Set the frame interval to x
         print(f"Frame interval: {frame_interval}")
 
-        print(f"reading video from {video_path}")
         # Calculate start and end frames
         start_frame = int(start_time * fps) if start_time is not None else 0
         end_frame = int(end_time * fps) if end_time is not None else total_frames
@@ -103,7 +102,7 @@ class Cliper:
     def video2frames(
         self, download_url, output_video_name, output_path, frame_rate, interval, start_time, end_time
     ):
-        output_video_folder_path = os.path.join(output_path, "video", output_video_name)
+        output_video_folder_path = os.path.join(output_path, "video")
         os.mkdir(output_video_folder_path)
 
         output_frames_path = os.path.join(output_path, "frames")
