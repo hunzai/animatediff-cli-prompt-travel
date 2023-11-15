@@ -4,10 +4,6 @@ import shutil
 import subprocess
 import sys
 
-# import git
-# import google.colab
-# from google.colab import drive
-# from openai import OpenAI
 from pip._internal.commands import install
 
 
@@ -28,38 +24,6 @@ class Director:
         self.c = 16
         self.gc = 2.0
         self.seed = 123123
-
-        #
-        # OPENAI_API_KEY = os.environ["OPENAI_API_KEY"]
-
-        # # init git repo var
-        # self.URL_ANIMATEDIFF_REPO = "https://github.com/hunzai/animatediff-cli-prompt-travel"
-
-        # # check if colab running
-        # self.in_colab = "google.colab" in sys.modules
-
-        # # REPO URLs
-        # if self.in_colab:
-        #     self.REPO_PATH_PARENT = "/content/drive/MyDrive/AI"
-
-        #     print("Please ensure followign path exsists in Gdrive", self.REPO_PATH_PARENT)
-        # else:
-        #     self.REPO_PATH_PARENT = os.getcwd()
-
-        # # build animate-diff src
-        # self.build_animate_diff()
-
-        # # init repo var on fs
-        # self.init_cliper()
-
-        # # setup models
-        # self.setup_models()
-
-        # # init openai client
-        # self.openai_client = OpenAI()
-
-        # update controlnet_image path
-        # self.controlnet_images_path = os.path.join(self.REPO_PATH, "data", "controlnet_image")
 
     #
     def generate_from_prompt(self, head_prompt, ref_image=None):
@@ -98,6 +62,8 @@ class Director:
         # update all unwritten congfis
         self.save_current_config()
 
+        print(f"config json path  {self.config_json_path}")
+        print(f"using configs to generate {self.config}")
         #
         print("Submitting Animatediff job...")
 
@@ -123,95 +89,6 @@ class Director:
             ]
         )
 
-    # def generate_dalle_img(self, prompt=None):
-    #     #
-    #     response_path = None
-
-    #     #
-    #     try:
-    #         if prompt is None:
-    #             prompt = self.head_prompt
-
-    #         #
-    #         response_dalle = self.openai_client.images.generate(
-    #             model="dall-e-3",
-    #             prompt=prompt,
-    #             size="1024x1024",
-    #             quality="standard",
-    #             n=1,
-    #         )
-
-    #         response_path = response_dalle.data[0].url
-    #     except Exception as e:
-    #         print("Dall-e generation faulure:", e)
-
-    #     return response_path
-
-    # 1. mount GDRIVE if in colab
-    # 2. clone ANIMATEDIFF REPO
-    # 3. build repo fromsrc
-    # def build_animate_diff(self):
-    #     #
-    #     in_colab = "google.colab" in sys.modules
-
-    #     #
-    #     if in_colab == True:
-    #         print("Mounting Gdrive...")
-    #         # drive.mount("/content/drive", force_remount=True)
-
-    #         #
-    #         self.get_animatediff_git_repo()
-
-    #         # program routine stands at /animatediff-cli-prompt-travel
-
-    #         # Perform an editable install
-    #         self.build_animatediff_src()
-
-    #     else:
-    #         ## implement build script for local execution
-    #         ## TODO
-    #         pass
-
-    # def get_animatediff_git_repo(self):
-    #     print("Cloning animatediff repo...")
-
-    #     #
-    #     self.REPO_PATH = os.path.join(self.REPO_PATH_PARENT, "animatediff-cli-prompt-travel")
-
-    #     # clearup repo dir
-    #     shutil.rmtree(self.REPO_PATH, ignore_errors=True)
-
-    #     # clone repo - !git clone https://github.com/hunzai/animatediff-cli-prompt-travel
-    #     repo_animatediff = git.Repo.clone_from(
-    #         self.URL_ANIMATEDIFF_REPO, self.REPO_PATH, branch="experiments"
-    #     )
-
-    #     # reset checkout
-    #     repo_animatediff.git.reset("--hard")
-
-    #     # pull origin - !git pull origin experiments
-    #     repo_animatediff.remotes.origin.pull()
-
-    # def build_animatediff_src(self):
-    #     #
-    #     print("Building animate diff from src...")
-
-    #     #
-    #     subprocess.run(["pip", "install", "-e", self.REPO_PATH])
-
-    #     # test src build
-    #     subprocess_out = subprocess.run(
-    #         ["animatediff", "--help"], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True
-    #     )
-
-    #     # Access stdout and stderr
-    #     print("Standard Output:")
-    #     print(subprocess_out.stdout)
-
-    #     print("Standard Error:")
-    #     print(subprocess_out.stderr)
-
-    # downloads models to [REPO Parent]/models e.g. '/content/drive/MyDrive/AI/models
     def download_models(self, models_path):
         print("Downloading models")
 
@@ -347,28 +224,6 @@ class Director:
         # # !aria2c --console-log-level=error -c -x 16 -s 16 -k 1M https://huggingface.co/runwayml/stable-diffusion-v1-5 -d $MODEL_PATH/huggingface -o
         # !aria2c --console-log-level=error -c -x 16 -s 16 -k 1M https://huggingface.co/camenduru/AnimateDiff/resolve/main/mm_sd_v15_v2.ckpt -d $MODEL_PATH/motion-module -o mm_sd_v15_v2.ckpt
         # !aria2c --console-log-level=error -c -x 16 -s 16 -k 1M https://civitai.com/api/download/models/108545 -d $MODEL_PATH/sd -o mistoonAnime_v20.safetensors
-
-    # def copy_models_to_repo(self):
-    #     print("Copying models to repo")
-
-    #     #
-    #     MODEL_REPO_PATH = os.path.join(self.REPO_PATH_PARENT, "models")
-    #     MODEL_PATH = os.path.join(self.REPO_PATH, "data", "models")
-
-    #     #
-    #     PATH_HUGGING_FACE = "huggingface"
-    #     PATH_MOTION_MODULE = "motion-module"
-    #     PATH_SD = "sd"
-    #     PATH_DWPose = "DWPose"
-
-    #     #
-    #     for model in [PATH_HUGGING_FACE, PATH_MOTION_MODULE, PATH_SD, PATH_DWPose]:
-    #         # copy from [Repo Parent]/models to [Repo Parent]/[Repo]/data/models
-    #         model_base_path = os.path.join(MODEL_REPO_PATH, model)
-    #         model_new_path = os.path.join(MODEL_PATH, model)
-
-    #         #
-    #         shutil.copytree(model_base_path, model_new_path, dirs_exist_ok=True)
 
     # set config
     def set_config(self, filepath):
