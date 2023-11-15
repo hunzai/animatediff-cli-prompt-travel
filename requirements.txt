@@ -99,6 +99,5 @@ cohere
 tiktoken
 openai
 tensorrt
-git
 google.colab
 pytube==15.0.0
