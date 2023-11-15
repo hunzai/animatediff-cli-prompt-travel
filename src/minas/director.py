@@ -41,6 +41,10 @@ class Director:
 
     #
     def generate(self):
+        import animatediff
+
+        print(dir(animatediff))
+
         # run basic validation
         if self.head_prompt is None:
             raise Exception("Prompt not defined. PLease define obj.head_prompt")
