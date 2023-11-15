@@ -1,5 +1,5 @@
 # requirements.txt
-tensorflow-gpu # Replace '2.x' with the specific TensorFlow version you need
+
 torch # This version should match the xFormers requirement
 xformers  # Add the version if needed, ensuring compatibility with PyTorch and Python versions
 torchaudio
@@ -11,3 +11,4 @@ opencv-python==4.8.1.78
 transformers
 triton
 pytube==15.0.0
+onnxruntime
