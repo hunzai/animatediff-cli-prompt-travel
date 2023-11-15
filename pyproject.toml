@@ -20,7 +20,7 @@ ignore = ['F841', 'F401', 'E501']
 combine-as-imports = true
 force-wrap-aliases = true
 known-local-folder = ["src"]
-known-first-party = ["animatediff"]
+known-first-party = ["animatediff", "helpers", "minas"]
 
 [tool.pyright]
 include = ['src/**']
