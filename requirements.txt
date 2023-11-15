@@ -2,6 +2,8 @@
 tensorflow-gpu==2.x  # Replace '2.x' with the specific TensorFlow version you need
 torch==2.1.0+cu121  # This version should match the xFormers requirement
 xformers  # Add the version if needed, ensuring compatibility with PyTorch and Python versions
+torchaudio
+torchvision
 absl-py==2.0.0
 accelerate==0.23.0
 antlr4-python3-runtime==4.9.3
@@ -83,9 +85,7 @@ sympy==1.12
 tifffile==2023.9.26
 timm==0.9.8
 tokenizers==0.14.1
-torch
-torchaudio
-torchvision
+
 tqdm==4.66.1
 transformers==4.34.1
 triton
@@ -94,7 +94,6 @@ typing-inspect==0.9.0
 typing_extensions==4.4.0
 tzdata==2023.3
 urllib3==1.26.13
-xformers
 zipp==3.17.0
 controlnet_aux
 cohere
