@@ -17,7 +17,8 @@ class Cliper:
         yt = YouTube(url)
         stream = yt.streams.get_highest_resolution()
         input_video_path = os.path.join(output_folder, f"{stream.default_filename}")
-        # output_video_path = os.path.join(output_folder, f"{video_name}.mp4")
+        output_video_path = os.path.join(output_folder, f"{video_name}.mp4")
+        print(f"Downloading video to {output_video_path}")
         stream.download(output_path=output_folder, filename=f"{video_name}.mp4")
 
     def create_clips(self, input_video_path, clip_duration=5, output_folder=""):
@@ -65,7 +66,7 @@ class Cliper:
                 saved_count += 1
 
             count += 1
-
+        print(f"frames are saved to {output_folder}")
         video.release()
 
     def images_to_video(self, image_dir, fps, output_file):
