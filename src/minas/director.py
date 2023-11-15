@@ -89,6 +89,8 @@ class Director:
             ]
         )
 
+        print(f"completed!")
+
     def download_models(self, models_path):
         print("Downloading models")
 
@@ -273,7 +275,7 @@ class Director:
     def update_config_set_ytframes(self, controlnet_images_path, var_dict, video_frames_dir):
         # update control net image path
         # controlnet_image_path_video = os.path.join(controlnet_images_path, downloaded_video_name)
-        self.config["controlnet_map"]["input_image_dir"] = video_frames_dir
+        self.config["controlnet_map"]["input_image_dir"] = controlnet_images_path
 
         # # remote dir
         # shutil.rmtree(controlnet_image_path_video, ignore_errors=True)
@@ -304,5 +306,4 @@ class Director:
 
                 print(f"copy from ${video_frames_dir} to ${cntrl_dir_path}")
 
-        #
         self.save_current_config()
