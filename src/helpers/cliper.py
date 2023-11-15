@@ -109,7 +109,7 @@ class Cliper:
         os.mkdir(output_frames_path)
 
         self.download_from_yt(
-            url=download_url, output_folder=output_video_folder_path, filename=output_video_name
+            url=download_url, video_output_path=output_video_folder_path, filename=output_video_name
         )
 
         video_file_path = os.path.join(output_video_folder_path, output_video_name)
