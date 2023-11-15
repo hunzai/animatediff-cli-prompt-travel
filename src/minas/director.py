@@ -275,8 +275,9 @@ class Director:
     def update_config_set_ytframes(
         self, prompt_config_json_path, controlnet_images_path, var_dict, video_frames_dir
     ):
-        self.update_config_cntrl_map(var_dict)
         self.set_config(prompt_config_json_path)
+        self.update_config_cntrl_map(var_dict)
+
         # create dir
         try:
             os.makedirs(controlnet_images_path, exist_ok=True)
