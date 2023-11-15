@@ -41,9 +41,9 @@ class Director:
 
     #
     def generate(self):
-        import animatediff
+        # import animatediff
 
-        print(dir(animatediff))
+        # print(dir(animatediff))
 
         # run basic validation
         if self.head_prompt is None:
