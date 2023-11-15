@@ -72,7 +72,7 @@ class Director:
         print("Submitting Animatediff job...")
 
         #
-        subprocess.run(
+        result = subprocess.run(
             [
                 "animatediff",
                 "generate",
@@ -90,10 +90,22 @@ class Director:
                 str(self.gc),
                 "--seed",
                 str(self.seed),
-            ]
+            ],
+            capture_output=True,
+            text=True,  # Decodes the output to a string instead of bytes
         )
 
-        print(f"completed!")
+        # Print the standard output (if any)
+        print("Standard Output:", result.stdout)
+
+        # Print the standard error (if any)
+        print("Standard Error:", result.stderr)
+
+        # Check the exit status
+        if result.returncode != 0:
+            print("Error: The command did not execute successfully.")
+        else:
+            print("Command executed successfully.")
 
     def download_models(self, models_path):
         print("Downloading models")
