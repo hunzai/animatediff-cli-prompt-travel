@@ -13,13 +13,13 @@ class Cliper:
         video.release()
         return video_length
 
-    def download_from_yt(self, url, video_name, output_folder):
+    def download_from_yt(self, url, video_output_path, filename):
         yt = YouTube(url)
         stream = yt.streams.get_highest_resolution()
-        input_video_path = os.path.join(output_folder, f"{stream.default_filename}")
-        output_video_path = os.path.join(output_folder, f"{video_name}.mp4")
-        print(f"Downloading video to {output_video_path}")
-        stream.download(output_path=output_folder, filename=f"{video_name}.mp4")
+        # input_video_path = os.path.join(output_folder, f"{stream.default_filename}")
+        # output_video_path = os.path.join(output_folder, f"{video_name}.mp4")
+        print(f"Downloading video to {video_output_path}{filename}.mp4")
+        stream.download(output_path=video_output_path, filename=f"{filename}.mp4")
 
     def create_clips(self, input_video_path, clip_duration=5, output_folder=""):
         video_length = self.get_video_length(input_video_path)
@@ -103,15 +103,19 @@ class Cliper:
     def video2frames(
         self, download_url, output_video_name, output_path, frame_rate, interval, start_time, end_time
     ):
-        output_video_path = os.path.join(output_path, "video")
-        os.mkdir(output_video_path)
+        output_video_folder_path = os.path.join(output_path, "video", output_video_name)
+        os.mkdir(output_video_folder_path)
 
         output_frames_path = os.path.join(output_path, "frames")
         os.mkdir(output_frames_path)
 
-        self.download_from_yt(url=download_url, video_name=output_video_name, output_folder=output_video_path)
+        self.download_from_yt(
+            url=download_url, output_folder=output_video_folder_path, filename=output_video_name
+        )
+
+        video_file_path = os.path.join(output_video_folder_path, output_video_name)
         self.extract_frames(
-            output_video_path,
+            video_file_path,
             frame_rate,
             output_frames_path,
             interval,
