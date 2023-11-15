@@ -35,7 +35,7 @@ class Cliper:
 
         return clips  # Return the list containing paths of the created clips
 
-    def extract_frames(self, video_path, frame_rate, frames_output_folder_path, x, start_time, end_time):
+    def extract_frames(self, video_path, frames_output_folder_path, frame_rate, x, start_time, end_time):
         print(f"reading video from {video_path}")
         print(f"frames are generating into {frames_output_folder_path}")
 
@@ -115,8 +115,8 @@ class Cliper:
         video_file_path = os.path.join(output_video_folder_path, output_video_name)
         self.extract_frames(
             video_file_path,
-            frame_rate,
             output_frames_path,
+            frame_rate,
             interval,
             start_time=start_time,
             end_time=end_time,
