@@ -1,5 +1,7 @@
 # requirements.txt
-
+tensorflow-gpu==2.x  # Replace '2.x' with the specific TensorFlow version you need
+torch==2.1.0+cu121  # This version should match the xFormers requirement
+xformers  # Add the version if needed, ensuring compatibility with PyTorch and Python versions
 absl-py==2.0.0
 accelerate==0.23.0
 antlr4-python3-runtime==4.9.3
