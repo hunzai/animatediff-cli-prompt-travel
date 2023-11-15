@@ -48,6 +48,7 @@ class Cliper:
         frame_interval = x  # Set the frame interval to x
         print(f"Frame interval: {frame_interval}")
 
+        print(f"reading video from {video_path}")
         # Calculate start and end frames
         start_frame = int(start_time * fps) if start_time is not None else 0
         end_frame = int(end_time * fps) if end_time is not None else total_frames
