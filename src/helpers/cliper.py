@@ -1,10 +1,14 @@
 import os
+
 import cv2
-from pytube import YouTube
 from moviepy.video.io.ffmpeg_tools import ffmpeg_extract_subclip
+from pytube import YouTube
 
 
 class Cliper:
+    def __init__(self):
+        pass
+
     def get_video_length(self, video_path):
         video = cv2.VideoCapture(video_path)
         total_frames = video.get(cv2.CAP_PROP_FRAME_COUNT)
