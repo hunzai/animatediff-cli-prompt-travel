@@ -26,10 +26,9 @@ class Director:
         self.seed = 123123
 
     #
-    def generate_from_prompt(self, head_prompt, ref_image=None):
+    def generate_from_prompt(self, head_prompt):
         #
         self.head_prompt = head_prompt
-        self.ref_image = ref_image
 
         # generate
         self.generate()
