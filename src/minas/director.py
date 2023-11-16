@@ -113,12 +113,8 @@ class Director:
         #
         subprocess.run(["apt", "-y", "install", "-qq", "aria2"])
 
-        #
-        # MODEL_REPO_PATH = os.path.join(self.REPO_PATH_PARENT, "models")
-
-        #
-        PATH_HUGGING_FACE = os.path.join(models_path, "runwayml/stable-diffusion-v1-5")
-        PATH_HUGGING_FACE_SD_V15 = os.path.join(PATH_HUGGING_FACE, "stable-diffusion-v1-5")
+        PATH_HUGGING_FACE = os.path.join(models_path, "huggingface")
+        PATH_HUGGING_FACE_SD_V15 = os.path.join(PATH_HUGGING_FACE, "runwayml/stable-diffusion-v1-5")
 
         #
         PATH_MOTION_MODULE = os.path.join(models_path, "motion-module")
@@ -131,25 +127,25 @@ class Director:
         PATH_DWPose = os.path.join(models_path, "DWPose")
         PATH_DWPose_DW11 = os.path.join(PATH_DWPose, "dw-ll_ucoco_384.onnx")
 
-        #
-        if not os.path.exists(PATH_HUGGING_FACE) or not os.path.isfile(PATH_HUGGING_FACE_SD_V15):
-            #
-            subprocess.run(
-                [
-                    "aria2c",
-                    "--console-log-level=error",
-                    "-c",
-                    "-x",
-                    "16",
-                    "-k",
-                    "1M",
-                    "https://huggingface.co/runwayml/stable-diffusion-v1-5",
-                    "-d",
-                    str(PATH_HUGGING_FACE),
-                ]
-            )
-            # !aria2c --console-log-level=error -c -x 16 -s 16 -k 1M https://huggingface.co/runwayml/stable-diffusion-v1-5 -d $MODEL_PATH/huggingface -o
-            print("RUNWAY SD1.5 download success (not found earlier)")
+        # #
+        # if not os.path.exists(PATH_HUGGING_FACE) or not os.path.isfile(PATH_HUGGING_FACE_SD_V15):
+        #     #
+        #     subprocess.run(
+        #         [
+        #             "aria2c",
+        #             "--console-log-level=error",
+        #             "-c",
+        #             "-x",
+        #             "16",
+        #             "-k",
+        #             "1M",
+        #             "https://huggingface.co/runwayml/stable-diffusion-v1-5",
+        #             "-d",
+        #             str(PATH_HUGGING_FACE),
+        #         ]
+        #     )
+        #     # !aria2c --console-log-level=error -c -x 16 -s 16 -k 1M https://huggingface.co/runwayml/stable-diffusion-v1-5 -d $MODEL_PATH/huggingface -o
+        #     print("RUNWAY SD1.5 download success (not found earlier)")
 
         #
         if not os.path.exists(PATH_MOTION_MODULE) or not os.path.isfile(PATH_MOTION_MODULE_SD):
