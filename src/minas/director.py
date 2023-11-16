@@ -117,7 +117,7 @@ class Director:
         # MODEL_REPO_PATH = os.path.join(self.REPO_PATH_PARENT, "models")
 
         #
-        PATH_HUGGING_FACE = os.path.join(models_path, "huggingface")
+        PATH_HUGGING_FACE = os.path.join(models_path, "runwayml/stable-diffusion-v1-5")
         PATH_HUGGING_FACE_SD_V15 = os.path.join(PATH_HUGGING_FACE, "stable-diffusion-v1-5")
 
         #
