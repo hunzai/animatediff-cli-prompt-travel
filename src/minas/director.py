@@ -67,7 +67,7 @@ class Director:
         # update all unwritten congfis
         self.save_current_config()
 
-        print(f"config json path  {self.config_json_path}")
+        print(f"config json path  {self.get_generate_config_path()}")
         print(f"using configs to generate {self.config}")
         #
         print("Submitting Animatediff job...")
@@ -78,7 +78,7 @@ class Director:
                 "animatediff",
                 "generate",
                 "-c",
-                str(self.config_json_path),
+                str(self.get_generate_config_path()),
                 "-W",
                 str(self.w),
                 "-H",
@@ -240,6 +240,16 @@ class Director:
         # !aria2c --console-log-level=error -c -x 16 -s 16 -k 1M https://huggingface.co/camenduru/AnimateDiff/resolve/main/mm_sd_v15_v2.ckpt -d $MODEL_PATH/motion-module -o mm_sd_v15_v2.ckpt
         # !aria2c --console-log-level=error -c -x 16 -s 16 -k 1M https://civitai.com/api/download/models/108545 -d $MODEL_PATH/sd -o mistoonAnime_v20.safetensors
 
+    #
+    def get_generate_config_path(self):
+        # return temp path
+        return os.path.join(
+            os.path.dirname(
+                self.config_json_path
+            ),
+            Path(self.config_json_path).stem + "_temp.json"
+        )
+
     # set config
     def set_config(self, filepath):
         #
@@ -247,10 +257,11 @@ class Director:
 
         #
         try:
+            # read orignal config
             with open(self.config_json_path, "r") as json_file:  # Open the file
                 self.config = json.load(json_file)  # Read and convert JSON data into Python object
 
-            #
+            # write to temp
             self.save_current_config()
 
             #
@@ -265,8 +276,12 @@ class Director:
         if self.config is None:
             raise Exception("The config is not initialized yet")
 
+        # update config
+        self.config["head_prompt"] = self.head_prompt
+        self.config["ref_image"] = self.ref_image
+
         #
-        with open(self.config_json_path, "w") as json_file:  # Open the file
+        with open(self.get_generate_config_path(), "w") as json_file:  # Open the file
             json.dump(self.config, json_file)  # Read and convert JSON data into Python object
 
         #
