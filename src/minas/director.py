@@ -39,13 +39,10 @@ class Director:
         self.controlnet_images_path = controlnet_images_path
 
         #
-        self.copy_ref_image_to_cntrl_image(
-            os.path.join(controlnet_images_path, ref_image_Stem)
-        )
+        self.copy_ref_image_to_cntrl_image(os.path.join(controlnet_images_path, ref_image_Stem))
 
         # generate
         self.generate()
-
 
     #
     def generate_from_youtube(self, yt_url, head_prompt, ref_image=None):
@@ -286,9 +283,8 @@ class Director:
         #
         for key, value in self.config["controlnet_map"].items():
             #
-            if type(value) == dict and "enable" in value and value["enable"] == "true":
+            if type(value) == dict and value["enable"]:
                 enabled_cntrl.append(key)
-
         #
         return enabled_cntrl
 
@@ -305,17 +301,13 @@ class Director:
             print("Failed to create dir")
             pass
 
-
         #
         print("Enabled controls", str(self.get_enabled_cntrl()))
 
         #
         for cntrl_name in self.get_enabled_cntrl():
             #
-            ref_image_cntrl_path = os.path.join(
-                cntrl_image_path,
-                cntrl_name
-            )
+            ref_image_cntrl_path = os.path.join(cntrl_image_path, cntrl_name)
 
             #
             try:
@@ -328,8 +320,6 @@ class Director:
                 print("Failed to create dir")
                 pass
 
-
-
             print("running cntrl", cntrl_name)
 
             # check if cntrl enabled
@@ -337,13 +327,10 @@ class Director:
 
                 # iterate prompt map
                 for ts, ts_prompt in self.config["prompt_map"].items():
-                # init name
-                    new_filename_ts = os.path.join(
-                        ref_image_cntrl_path,
-                        f"{int(ts):05}_test.png"
-                    )
+                    # init name
+                    new_filename_ts = os.path.join(ref_image_cntrl_path, f"{int(ts):05}_test.png")
 
-                    #ccopy ref_image to new_filenaee
+                    # ccopy ref_image to new_filenaee
                     shutil.copyfile(self.ref_image, new_filename_ts)
 
                     print("copied ref image to cntrl dir", self.ref_image, new_filename_ts)
