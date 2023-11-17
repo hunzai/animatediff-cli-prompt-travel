@@ -328,7 +328,7 @@ class Director:
                 # iterate prompt map
                 for ts, ts_prompt in self.config["prompt_map"].items():
                     # init name
-                    new_filename_ts = os.path.join(ref_image_cntrl_path, f"{int(ts):05}_test.png")
+                    new_filename_ts = os.path.join(ref_image_cntrl_path, f"{int(ts):05}.png")
 
                     # ccopy ref_image to new_filenaee
                     shutil.copyfile(self.ref_image, new_filename_ts)
