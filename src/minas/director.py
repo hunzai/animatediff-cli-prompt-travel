@@ -302,7 +302,7 @@ class Director:
         #
         for key, value in self.config["controlnet_map"].items():
             #
-            if type(value) == dict and value["enable"]:
+            if type(value) == dict and value["enable"] and key != "controlnet_ref":
                 enabled_cntrl.append(key)
         #
         return enabled_cntrl
