@@ -63,12 +63,6 @@ class Director:
         if self.head_prompt is None:
             raise Exception("Prompt not defined. PLease define obj.head_prompt")
 
-        # update config
-        if self.ref_image is not None:
-            self.config["controlnet_map"]["input_image_dir"] = self.ref_image_folder
-            self.config["controlnet_map"]["controlnet_ref"]["enable"] = True
-            self.config["controlnet_map"]["controlnet_ref"]["ref_image"] = self.ref_image
-
         # update all unwritten congfis
         self.save_current_config()
 
@@ -283,7 +277,12 @@ class Director:
 
         # update config
         self.config["head_prompt"] = self.head_prompt
-        self.config["ref_image"] = self.ref_image
+
+        # update config
+        if self.ref_image is not None:
+            self.config["controlnet_map"]["input_image_dir"] = self.ref_image_folder
+            self.config["controlnet_map"]["controlnet_ref"]["enable"] = True
+            self.config["controlnet_map"]["controlnet_ref"]["ref_image"] = self.ref_image
 
         #
         with open(self.get_generate_config_path(), "w") as json_file:  # Open the file
