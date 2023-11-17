@@ -17,6 +17,7 @@ class Director:
         # init vars
         self.head_prompt = None
         self.ref_image = None
+        self.ref_image_folder = None
         self.controlnet_images_path = None
         self.use_dalle_ref_image = False
         self.w = 720
@@ -39,7 +40,10 @@ class Director:
         self.controlnet_images_path = controlnet_images_path
 
         #
-        self.copy_ref_image_to_cntrl_image(os.path.join(controlnet_images_path, ref_image_Stem))
+        self.ref_image_folder = os.path.join(controlnet_images_path, ref_image_Stem)
+
+        #
+        self.copy_ref_image_to_cntrl_image(self.ref_image_folder)
 
         # generate
         self.generate()
@@ -61,6 +65,7 @@ class Director:
 
         # update config
         if self.ref_image is not None:
+            self.config["controlnet_map"]["input_image_dir"] = self.ref_image_folder
             self.config["controlnet_map"]["controlnet_ref"]["enable"] = True
             self.config["controlnet_map"]["controlnet_ref"]["ref_image"] = self.ref_image
 
