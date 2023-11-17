@@ -3,12 +3,13 @@ import os
 import shutil
 import subprocess
 import sys
+from pathlib import Path
 
 from pip._internal.commands import install
 
 
 class Director:
-    def __init__(self, config_json_path=None):
+    def __init__(self):
         # init config
         self.config_json_path = None
         self.config = None
@@ -26,13 +27,21 @@ class Director:
         self.seed = 123123
 
     #
-    def generate_img_to_video(self, head_prompt, ref_image):
+    def generate_img_to_video(self, head_prompt, ref_image, controlnet_images_path):
         #
         self.head_prompt = head_prompt
         self.ref_image = ref_image
 
         #
-        self.copy_ref_image_to_cntrl_image()
+        ref_image_Stem = Path(self.ref_image).stem
+
+        #
+        self.controlnet_images_path = controlnet_images_path
+
+        #
+        self.copy_ref_image_to_cntrl_image(
+            os.path.join(controlnet_images_path, ref_image_Stem)
+        )
 
         # generate
         self.generate()
@@ -293,11 +302,14 @@ class Director:
         return enabled_cntrl
 
     #
-    def copy_ref_image_to_cntrl_image(self):
+    def copy_ref_image_to_cntrl_image(self, cntrl_image_path):
+        #
+        if cntrl_image_path is None:
+            raise Exception("The controlnet_images_path for copying is not initialized yet")
 
         # create dir
         try:
-            os.makedirs(self.controlnet_images_path, exist_ok=True)
+            os.makedirs(cntrl_image_path, exist_ok=True)
         except:
             print("Failed to create dir")
             pass
@@ -306,7 +318,7 @@ class Director:
         for cntrl_name in self.get_enabled_cntrl():
             #
             ref_image_cntrl_path = os.path.join(
-                self.controlnet_images_path,
+                cntrl_image_path,
                 cntrl_name
             )
 
