@@ -26,13 +26,17 @@ class Director:
         self.seed = 123123
 
     #
-    def generate_from_prompt(self, head_prompt, ref_image):
+    def generate_img_to_video(self, head_prompt, ref_image):
         #
         self.head_prompt = head_prompt
         self.ref_image = ref_image
 
+        #
+        self.copy_ref_image_to_cntrl_image()
+
         # generate
         self.generate()
+
 
     #
     def generate_from_youtube(self, yt_url, head_prompt, ref_image=None):
