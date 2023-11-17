@@ -33,7 +33,7 @@ class Director:
         self.ref_image = ref_image
 
         #
-        ref_image_Stem = Path(self.ref_image).stem
+        ref_image_Stem = Path(ref_image).stem
 
         #
         self.controlnet_images_path = controlnet_images_path
@@ -312,6 +312,15 @@ class Director:
                 cntrl_image_path,
                 cntrl_name
             )
+
+            #
+            try:
+                os.makedirs(ref_image_cntrl_path, exist_ok=True)
+            except:
+                print("Failed to create dir")
+                pass
+
+
 
             print("running cntrl", cntrl_name)
 
