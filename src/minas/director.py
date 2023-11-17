@@ -26,9 +26,10 @@ class Director:
         self.seed = 123123
 
     #
-    def generate_from_prompt(self, head_prompt):
+    def generate_from_prompt(self, head_prompt, ref_image):
         #
         self.head_prompt = head_prompt
+        self.ref_image = ref_image
 
         # generate
         self.generate()
@@ -269,6 +270,59 @@ class Director:
 
         #
         print("Update config success")
+
+    def get_enabled_cntrl(self):
+        #
+        if self.config is None:
+            raise Exception("The config is not initialized yet")
+
+        #
+        enabled_cntrl = []
+
+        #
+        for key, value in self.config["controlnet_map"].items():
+            #
+            if type(value) == dict and "enable" in value and value["enable"] == "true":
+                enabled_cntrl.append(key)
+
+        #
+        return enabled_cntrl
+
+    #
+    def copy_ref_image_to_cntrl_image(self):
+
+        # create dir
+        try:
+            os.makedirs(self.controlnet_images_path, exist_ok=True)
+        except:
+            print("Failed to create dir")
+            pass
+
+        #
+        for cntrl_name in self.get_enabled_cntrl():
+            #
+            ref_image_cntrl_path = os.path.join(
+                self.controlnet_images_path,
+                cntrl_name
+            )
+
+            print("running cntrl", cntrl_name)
+
+            # check if cntrl enabled
+            if cntrl_name in self.config["controlnet_map"]:
+
+                # iterate prompt map
+                for ts, ts_prompt in self.config["prompt_map"].items():
+                # init name
+                    new_filename_ts = os.path.join(
+                        ref_image_cntrl_path,
+                        f"{int(ts):05}_test.png"
+                    )
+
+                    #ccopy ref_image to new_filenaee
+                    shutil.copyfile(self.ref_image, new_filename_ts)
+
+                    print("copied ref image to cntrl dir", self.ref_image, new_filename_ts)
 
     # update config
     def update_config_cntrl_map(self, var_dict):
