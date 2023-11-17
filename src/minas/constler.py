@@ -1,10 +1,14 @@
 import os
+import traceback
 
 from openai import OpenAI
 
 
 class Constler:
     def __init__(self):
+        #
+        print(os.getenv('OPENAI_KEY'))
+
         #
         self.openai_key = os.getenv('OPENAI_KEY')
 
@@ -37,6 +41,8 @@ class Constler:
             print("Dall e generation success", response_path)
 
         except Exception as e:
+            #
             print("Dall-e generation faiulure:", e)
+            print(traceback.format_exc())
 
         return response_path
