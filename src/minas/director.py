@@ -22,9 +22,9 @@ class Director:
         self.use_dalle_ref_image = False
         self.w = 720
         self.h = 720
-        self.l = 30
+        self.l = 60
         self.c = 16
-        self.gc = 2.0
+        self.gc = 5.0
         self.seed = 123123
 
     #
@@ -243,10 +243,7 @@ class Director:
     def get_generate_config_path(self):
         # return temp path
         return os.path.join(
-            os.path.dirname(
-                self.config_json_path
-            ),
-            Path(self.config_json_path).stem + "_temp.json"
+            os.path.dirname(self.config_json_path), Path(self.config_json_path).stem + "_temp.json"
         )
 
     # set config
