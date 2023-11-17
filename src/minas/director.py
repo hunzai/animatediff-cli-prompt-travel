@@ -62,15 +62,6 @@ class Director:
         if self.head_prompt is None:
             raise Exception("Prompt not defined. PLease define obj.head_prompt")
 
-        #
-        if self.use_dalle_ref_image:
-            #
-            dalle_ref_img = self.generate_dalle_img()
-
-            #
-            if dalle_ref_img is not None:
-                self.ref_image = dalle_ref_img
-
         # update config
         if self.ref_image is not None:
             self.config["controlnet_map"]["controlnet_ref"]["enable"] = True
