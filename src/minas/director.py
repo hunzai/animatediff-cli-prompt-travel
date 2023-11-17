@@ -305,6 +305,10 @@ class Director:
             print("Failed to create dir")
             pass
 
+
+        #
+        print("Enabled controls", str(self.get_enabled_cntrl()))
+
         #
         for cntrl_name in self.get_enabled_cntrl():
             #
@@ -315,6 +319,10 @@ class Director:
 
             #
             try:
+                #
+                print("Creating contrl dir", cntrl_name)
+
+                #
                 os.makedirs(ref_image_cntrl_path, exist_ok=True)
             except:
                 print("Failed to create dir")
