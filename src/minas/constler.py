@@ -7,14 +7,10 @@ from openai import OpenAI
 class Constler:
     def __init__(self):
         #
-        print(os.getenv('OPENAI_KEY'))
-
-        #
         self.openai_key = os.getenv('OPENAI_KEY')
-        self.dreamai_key = os.getenv('DREAMAI_KEY')
 
         #
-        os.environ["OPENAI_API_KEY"] = self.openai_key
+        # os.environ["OPENAI_API_KEY"] = self.openai_key
 
         #
         # self.client = OpenAI()
