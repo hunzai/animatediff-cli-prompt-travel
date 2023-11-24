@@ -106,8 +106,8 @@ class Director:
             str(self.seed)
         ]
 
-        if self.output is not None:
-            cmds_list.extend(["-o", str(self.output)])
+        # if self.output is not None:
+        #     cmds_list.extend(["-o", str(self.output)])
 
         #
         result = subprocess.run(
