@@ -39,7 +39,6 @@ class Director:
 
         #
         ref_image_Stem = Path(ref_image).stem
-        last_ref_image_Stem = Path(last_ref_image).stem
 
         #
         self.output = f"""{ref_image_Stem}_output""" if output is None else output
@@ -49,7 +48,11 @@ class Director:
 
         #
         self.ref_image_folder = os.path.join(controlnet_images_path, ref_image_Stem)
-        self.last_ref_image_folder = os.path.join(controlnet_images_path, last_ref_image_Stem)
+
+        # setup last_ref_image
+        if last_ref_image is not None:
+          last_ref_image_Stem = Path(last_ref_image).stem
+          self.last_ref_image_folder = os.path.join(controlnet_images_path, last_ref_image_Stem)
 
         #
         if last_ref_image:
