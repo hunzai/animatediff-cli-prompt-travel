@@ -84,27 +84,31 @@ class Director:
         print("Submitting Animatediff job...")
 
         #
+        cmds_list = [
+            "animatediff",
+            "generate",
+            "-c",
+            str(self.get_generate_config_path()),
+            "-W",
+            str(self.w),
+            "-H",
+            str(self.h),
+            "-L",
+            str(self.l),
+            "-C",
+            str(self.c),
+            "-gc",
+            str(self.gc),
+            "--seed",
+            str(self.seed)
+        ]
+
+        if self.output is not None:
+            cmds_list.extend(["-o", str(self.output)])
+
+        #
         result = subprocess.run(
-            [
-                "animatediff",
-                "generate",
-                "-c",
-                str(self.get_generate_config_path()),
-                "-W",
-                str(self.w),
-                "-H",
-                str(self.h),
-                "-L",
-                str(self.l),
-                "-C",
-                str(self.c),
-                "-gc",
-                str(self.gc),
-                "--seed",
-                str(self.seed),
-                "-o",
-                str(self.output),
-            ],
+            cmds_list,
             capture_output=True,
             text=True,  # Decodes the output to a string instead of bytes
         )
