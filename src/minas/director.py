@@ -424,15 +424,13 @@ class Director:
                         # ccopy ref_image to new_filenaee
                         shutil.copyfile(self.ref_image, new_filename_ts)
 
-                        print("copied ref image to cntrl dir", self.ref_image, new_filename_ts)
-
                     else:
                         new_filename_ts = os.path.join(last_ref_image_cntrl_path, f"{int(ts):05}.png")
 
                         # ccopy ref_image to new_filenaee
-                        shutil.copyfile(self.last_ref_image, new_filename_ts)
+                        shutil.copyfile(self.ref_image, new_filename_ts)
 
-                        print("copied ref image to cntrl dir", self.last_ref_image, new_filename_ts)
+                    print("copied ref image to cntrl dir", self.ref_image, new_filename_ts)
 
                     # increment current_Ts_idx counter
                     current_Ts_idx += 1
