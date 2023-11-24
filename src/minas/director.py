@@ -17,7 +17,9 @@ class Director:
         # init vars
         self.head_prompt = None
         self.ref_image = None
+        self.last_ref_image = None
         self.ref_image_folder = None
+        self.last_ref_image_folder = None
         self.controlnet_images_path = None
         self.use_dalle_ref_image = False
         self.w = 720
@@ -26,24 +28,34 @@ class Director:
         self.c = 16
         self.gc = 5.0
         self.seed = 123123
+        self.output = None
 
     #
-    def generate_img_to_video(self, head_prompt, ref_image, controlnet_images_path):
+    def generate_img_to_video(self, head_prompt, ref_image, controlnet_images_path, last_ref_image=None, output=None):
         #
         self.head_prompt = head_prompt
         self.ref_image = ref_image
+        self.last_ref_image = last_ref_image
 
         #
         ref_image_Stem = Path(ref_image).stem
+        last_ref_image_Stem = Path(last_ref_image).stem
+
+        #
+        self.output = f"""{ref_image_Stem}_output""" if output is None else output
 
         #
         self.controlnet_images_path = controlnet_images_path
 
         #
         self.ref_image_folder = os.path.join(controlnet_images_path, ref_image_Stem)
+        self.last_ref_image_folder = os.path.join(controlnet_images_path, last_ref_image_Stem)
 
         #
-        self.copy_ref_image_to_cntrl_image(self.ref_image_folder)
+        if last_ref_image:
+            self.copy_ref_image_to_cntrl_image_with_transition(self.ref_image_folder, self.last_ref_image_folder)
+        else:
+            self.copy_ref_image_to_cntrl_image(self.ref_image_folder)
 
         # generate
         self.generate()
@@ -90,6 +102,8 @@ class Director:
                 str(self.gc),
                 "--seed",
                 str(self.seed),
+                "-o",
+                str(self.output),
             ],
             capture_output=True,
             text=True,  # Decodes the output to a string instead of bytes
@@ -350,6 +364,71 @@ class Director:
                     shutil.copyfile(self.ref_image, new_filename_ts)
 
                     print("copied ref image to cntrl dir", self.ref_image, new_filename_ts)
+
+    def copy_ref_image_to_cntrl_image_with_transition(self, cntrl_image_path, last_cntrl_image_path=None):
+        #
+        if cntrl_image_path is None:
+            raise Exception("The controlnet_images_path for copying is not initialized yet")
+
+        # create dir
+        try:
+            os.makedirs(cntrl_image_path, exist_ok=True)
+        except:
+            print("Failed to create dir")
+            pass
+
+        #
+        print("Enabled controls", str(self.get_enabled_cntrl()))
+
+        #
+        for cntrl_name in self.get_enabled_cntrl():
+            #
+            ref_image_cntrl_path = os.path.join(cntrl_image_path, cntrl_name)
+
+            #
+            if last_cntrl_image_path is not None:
+                last_ref_image_cntrl_path = os.path.join(last_cntrl_image_path, cntrl_name)
+
+            #
+            try:
+                #
+                print("Creating contrl dir", cntrl_name)
+
+                #
+                os.makedirs(ref_image_cntrl_path, exist_ok=True)
+            except:
+                print("Failed to create dir")
+                pass
+
+            print("running cntrl", cntrl_name)
+
+            # check if cntrl enabled
+            if cntrl_name in self.config["controlnet_map"]:
+                #
+                current_Ts_idx = 1
+                last_ts_idx = len(self.config["prompt_map"].items())
+
+                # iterate prompt map
+                for ts, ts_prompt in self.config["prompt_map"].items():
+                    # init name
+                    if last_ref_image_cntrl_path == None or current_Ts_idx < last_ts_idx:
+                        new_filename_ts = os.path.join(ref_image_cntrl_path, f"{int(ts):05}.png")
+
+                        # ccopy ref_image to new_filenaee
+                        shutil.copyfile(self.ref_image, new_filename_ts)
+
+                        print("copied ref image to cntrl dir", self.ref_image, new_filename_ts)
+
+                    else:
+                        new_filename_ts = os.path.join(last_ref_image_cntrl_path, f"{int(ts):05}.png")
+
+                        # ccopy ref_image to new_filenaee
+                        shutil.copyfile(self.last_ref_image, new_filename_ts)
+
+                        print("copied ref image to cntrl dir", self.last_ref_image, new_filename_ts)
+
+                    # increment current_Ts_idx counter
+                    current_Ts_idx += 1
 
     # update config
     def update_config_cntrl_map(self, var_dict):
