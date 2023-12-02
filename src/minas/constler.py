@@ -14,7 +14,7 @@ class Constler:
 
         #
         # self.client_oi = OpenAI()
-        self.client_sd = self.get_stablediffusion_pipeline()
+        # self.client_sd = self.get_stablediffusion_pipeline()
         self.client_sdxl = self.get_stablediffusion_turbo_pipeline()
 
 
