@@ -41,11 +41,11 @@ class Constler:
         image = self.client_sd(prompt=prompt).images[0]
         image.save(output_path)
 
-    def generate_sdxl_img(self, prompt, output_path):
+    def generate_sdxl_img(self, prompt, output_path, num_inference_steps=1, guidance_scale=0.0):
         image = self.client_sdxl(
             prompt=prompt,
-            num_inference_steps=1,
-            guidance_scale=0.0,
+            num_inference_steps=num_inference_steps,
+            guidance_scale=guidance_scale,
         ).images[0]
         image.save(output_path)
 
