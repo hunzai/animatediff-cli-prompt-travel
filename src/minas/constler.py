@@ -29,12 +29,11 @@ class Constler:
         return pipe
 
     def get_stablediffusion_turbo_pipeline(self):
+        import torch
         from diffusers import DiffusionPipeline
 
         model_path = "stabilityai/sdxl-turbo"
-        pipe = DiffusionPipeline.from_pretrained(
-            model_path
-        ).to("cuda")
+        pipe = DiffusionPipeline.from_pretrained(model_path, torch_dtype=torch.float16, use_safetensors=True).to("cuda")
 
         return pipe
 
