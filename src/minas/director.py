@@ -518,7 +518,7 @@ class Director:
                 for ts, ts_prompt_map in variation_prompt_map.items():
                     # init source file and newfile name
                     source_filename_ts = ts_prompt_map["filename"]
-                    new_filename_ts = os.path.join(cntrl_image_path, f"{int(ts):05}.png")
+                    new_filename_ts = os.path.join(ref_image_cntrl_path, f"{int(ts):05}.png")
 
                     # ccopy ref_image to new_filenaee
                     shutil.copyfile(source_filename_ts, new_filename_ts)
