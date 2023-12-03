@@ -16,6 +16,7 @@ class Director:
 
         # init vars
         self.head_prompt = None
+        self.tail_prompt = None
         self.ref_image = None
         self.last_ref_image = None
         self.variation_prompt_map = None
@@ -64,9 +65,10 @@ class Director:
         # generate
         self.generate()
 
-    def generate_img_to_video_v2(self, head_prompt, ref_image, controlnet_images_path, variation_prompt_map=None, output=None):
+    def generate_img_to_video_v2(self, head_prompt, tail_prompt, ref_image, controlnet_images_path, variation_prompt_map=None, output=None):
         #
         self.head_prompt = head_prompt
+        self.tail_prompt = tail_prompt
         self.ref_image = ref_image
         self.variation_prompt_map = variation_prompt_map
 
@@ -328,6 +330,7 @@ class Director:
 
         # update config
         self.config["head_prompt"] = self.head_prompt
+        self.config["tail_prompt"] = self.tail_prompt
 
         # update config
         if self.ref_image is not None:
