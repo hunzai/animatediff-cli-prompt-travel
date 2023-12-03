@@ -18,6 +18,7 @@ class Director:
         self.head_prompt = None
         self.ref_image = None
         self.last_ref_image = None
+        self.variation_prompt_map = None
         self.ref_image_folder = None
         self.last_ref_image_folder = None
         self.controlnet_images_path = None
@@ -57,6 +58,38 @@ class Director:
         #
         if last_ref_image:
             self.copy_ref_image_to_cntrl_image_with_transition(self.ref_image_folder, self.last_ref_image_folder)
+        else:
+            self.copy_ref_image_to_cntrl_image(self.ref_image_folder)
+
+        # generate
+        self.generate()
+
+    def generate_img_to_video_v2(self, head_prompt, ref_image, controlnet_images_path, variation_prompt_map=None, output=None):
+        #
+        self.head_prompt = head_prompt
+        self.ref_image = ref_image
+        self.variation_prompt_map = variation_prompt_map
+
+        #
+        ref_image_Stem = Path(ref_image).stem
+
+        #
+        self.output = f"""{ref_image_Stem}_output""" if output is None else output
+
+        #
+        self.controlnet_images_path = controlnet_images_path
+
+        #
+        self.ref_image_folder = os.path.join(controlnet_images_path, ref_image_Stem)
+
+        # setup last_ref_image
+        # if last_ref_image is not None:
+        #   last_ref_image_Stem = Path(last_ref_image).stem
+        #   self.last_ref_image_folder = os.path.join(controlnet_images_path, last_ref_image_Stem)
+
+        # #
+        if variation_prompt_map:
+            self.copy_ref_image_to_cntrl_image_with_variations(self.ref_image_folder, self.variation_prompt_map)
         else:
             self.copy_ref_image_to_cntrl_image(self.ref_image_folder)
 
@@ -431,6 +464,63 @@ class Director:
                         shutil.copyfile(self.ref_image, new_filename_ts)
 
                     print("copied ref image to cntrl dir", self.ref_image, new_filename_ts)
+
+                    # increment current_Ts_idx counter
+                    current_Ts_idx += 1
+
+    def copy_ref_image_to_cntrl_image_with_variations(self, cntrl_image_path, variation_prompt_map=None):
+        #
+        if cntrl_image_path is None:
+            raise Exception("The controlnet_images_path for copying is not initialized yet")
+
+        #
+        if variation_prompt_map is None:
+            raise Exception("The variation_prompt_map for copying is not initialized yet")
+
+        # create dir
+        try:
+            os.makedirs(cntrl_image_path, exist_ok=True)
+        except:
+            print("Failed to create dir")
+            pass
+
+        #
+        print("Enabled controls", str(self.get_enabled_cntrl()))
+
+        #
+        for cntrl_name in self.get_enabled_cntrl():
+            #
+            ref_image_cntrl_path = os.path.join(cntrl_image_path, cntrl_name)
+
+            #
+            try:
+                #
+                print("Creating contrl dir", cntrl_name)
+
+                #
+                os.makedirs(ref_image_cntrl_path, exist_ok=True)
+            except:
+                print("Failed to create dir")
+                pass
+
+            print("running cntrl", cntrl_name)
+
+            # check if cntrl enabled
+            if cntrl_name in self.config["controlnet_map"]:
+                #
+                current_Ts_idx = 1
+                last_ts_idx = len(variation_prompt_map.items())
+
+                # iterate prompt map
+                for ts, ts_prompt_map in variation_prompt_map.items():
+                    # init source file and newfile name
+                    source_filename_ts = ts_prompt_map["filename"]
+                    new_filename_ts = os.path.join(cntrl_image_path, f"{int(ts):05}.png")
+
+                    # ccopy ref_image to new_filenaee
+                    shutil.copyfile(source_filename_ts, new_filename_ts)
+
+                    print("copied ref image to cntrl dir", source_filename_ts, new_filename_ts)
 
                     # increment current_Ts_idx counter
                     current_Ts_idx += 1
